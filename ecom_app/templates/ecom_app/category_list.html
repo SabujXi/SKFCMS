@@ -1,0 +1,14 @@
+{% extends 'ecom_app/base.html' %}
+{% block title %}Cat list{% endblock title %}
+{% block content %}
+    Category list: <br>
+
+    <ol>
+    {% for cat in cats %}
+        <li>
+            {{ cat.neme }}
+        </li>
+    {% endfor %}
+    </ol>
+
+{% endblock content %}

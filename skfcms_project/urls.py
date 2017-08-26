@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from ecom_app.views import index_view,categoryform_view,categorylist_view
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', index_view),
+    url(r'^cat-form$', categoryform_view),
+    url(r'^cat-list$', categorylist_view),
 ]

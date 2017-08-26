@@ -1,0 +1,14 @@
+{% extends 'ecom_app/base.html' %}
+{% block title %}Cat form{% endblock title %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        Category Name :<br>
+        <input type="text" name="name"><br>
+    Category Slug :<br>
+        <input type="text" name="slug"><br>
+    Category Description :<br>
+        <textarea name="description"></textarea> <br>
+        <input type="submit" name="submit" value="submit">
+    </form>
+{% endblock content %}
