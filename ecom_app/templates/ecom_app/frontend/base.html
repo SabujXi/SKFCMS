@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock title %}</title>
+    <style type="text/css">
+    	body{margin: 0px; padding: 0px; overflow: hidden;}
+    </style>
+</head>
+<body>
+	{% block header %}
+		<div style="padding:10px; margin:0px; width:100%; background: #ccc;">
+			<a href="{% url 'ecom_app:back-index' %}" style="text-decoration: none !important;">
+				Ecom Admin Panel
+			</a>
+		</div>
+	{% endblock header %}
+
+	<div style="padding:10px;">
+		{% block content %}
+
+		{% endblock content %}
+	</div>
+</body>
+</html>
