@@ -13,5 +13,4 @@ class Product(models.Model):
     imageurl = models.CharField(max_length=32, default="")
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated = models.DateTimeField(auto_now=True, null=True)
-
-
+    brands = models.ForeignKey("Brands", on_delete=models.CASCADE, null=True)

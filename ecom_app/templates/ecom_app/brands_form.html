@@ -1,0 +1,25 @@
+{% extends 'ecom_app/base.html' %}
+{% block title %} {% if brand.id %}Modify Brand: {{ brand.name }}{% else %} Add New Brand{% endif %} {% endblock title %}
+
+{% if msg %}
+    {% block msg %}
+        {{ msg }}
+    {% endblock %}
+{% endif %}
+
+{% block content %}
+    <hr>
+    <form action="{% url 'ecom_app:brands_form' brand.id %}" method="post">
+        {% csrf_token %}
+        Brands Name :<br>
+        <input type="text" value="{{ brand.name }}" name="name"><br>
+    Brands Slug :<br>
+        <input type="text" value="{{ brand.slug }}" name="slug"><br>
+    Brands Description :<br>
+        <textarea name="description">{{ brand.description }}</textarea> <br>
+        <input type="submit" name="submit" value="submit">
+    </form>
+    
+    <hr>
+    <a href="{% url 'ecom_app:brands_list' %}"> All Brands List</a> | <a href="{% url 'ecom_app:brands_form' '' %}">Add New Brand</a>
+{% endblock content %}
