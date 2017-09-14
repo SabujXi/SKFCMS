@@ -1,0 +1,24 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %}{{title}}{% endblock title %}
+
+
+
+
+{% block msg %}
+    <p>{{msg}}</p>
+{% endblock msg %}
+
+{% block content %}
+    <form action="{% url 'ecom_app:cat-form' cat.id %}" method="POST">
+        {% csrf_token %}
+        Category Name :<br>
+        <input type="text" name="name" value="{{ cat.name }}"><br><br>
+    Category Slug :<br>
+        <input type="text" name="slug" value="{{ cat.slug }}"><br><br>
+    Category Description :<br>
+        <textarea name="desc">{{ cat.description }}</textarea> <br><br>
+        <input type="submit" name="submit" value="submit">
+    </form>
+    <br><br>
+    <a href="{% url 'ecom_app:cat-list' %}">Category List</a> | <a href="{% url 'ecom_app:cat-form' '' %}">Add New</a>
+{% endblock content %}

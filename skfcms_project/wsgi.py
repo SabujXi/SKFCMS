@@ -1,5 +1,5 @@
 """
-WSGI config for SKFCMS project.
+WSGI config for skfcms_project project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
