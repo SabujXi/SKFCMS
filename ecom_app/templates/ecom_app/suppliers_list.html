@@ -1,0 +1,18 @@
+{% extends 'ecom_app/base.html' %}
+{% block title %}All Suppliers list{% endblock title %}
+{% block content %}
+    Suppliers list: <br>
+
+    <ol>
+    {% for supplier in suppliers %}
+        <li>
+            {{ supplier.name }} | <a href="{% url 'ecom_app:suppliers_form' supplier.id %}">Edit</a> | <a href="{% url 'ecom_app:suppliers_delete' supplier.id %}">Delete</a> | <a href="{% url 'ecom_app:suppliers_view' supplier.id %}">View</a>
+        </li>
+    {% endfor %}
+    </ol>
+
+    <hr>
+
+    <a href="{% url 'ecom_app:suppliers_form' '' %}"> Add New Supplier</a> | <a href="{% url 'ecom_app:suppliers_list' %}"> All Suppliers List</a>
+
+{% endblock content %}

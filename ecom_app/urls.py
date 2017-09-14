@@ -29,6 +29,13 @@ from ecom_app.views.brands_views import (
 	BrandsDeleteView
 )
 
+from ecom_app.views.suppliers_views import (
+	SuppliersCreateOrEditView,
+	SuppliersListView,
+	SuppliersViewView,
+	SuppliersDeleteView
+)
+
 urlpatterns = [
     url(r'^$', front_index_view, name='front-index'),
     url(r'^admin/$', back_index_view, name='back-index'),
@@ -53,4 +60,8 @@ urlpatterns = [
     url(r'^brand-list$', BrandsListView, name='brands_list'),
     url(r'^brand-view/([0-9]+)$', BrandsViewView, name='brands_view'),
     url(r'^brand-delete/([0-9]+)$', BrandsDeleteView, name='brands_delete'),
+    url(r'^supplier-form/(?P<suppliers_id>[0-9]*)$', SuppliersCreateOrEditView.as_view(), name='suppliers_form'),
+    url(r'^supplier-list$', SuppliersListView, name='suppliers_list'),
+    url(r'^supplier-view/([0-9]+)$', SuppliersViewView, name='suppliers_view'),
+    url(r'^supplier-delete/([0-9]+)$', SuppliersDeleteView, name='suppliers_delete'),
 ]

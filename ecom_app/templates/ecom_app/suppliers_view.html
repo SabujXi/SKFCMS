@@ -1,0 +1,10 @@
+{% extends 'ecom_app/base.html' %}
+{% block title %}Supplier: {{ supplier.name }}{% endblock title %}
+{% block content %}
+    Supplier Name: {{ supplier.name }} <br>
+    Supplier Slug: {{ supplier.slug }} <br>
+    Supplier Description: {{ supplier.description }} <br>
+
+    <a href="{% url 'ecom_app:suppliers_form' '' %}"> Add New Supplier</a> | <a href="{% url 'ecom_app:suppliers_list' %}"> All Suppliers List</a> | <a href="{% url 'ecom_app:suppliers_form' supplier.id %}">Edit This Supplier</a> | <a href="{% url 'ecom_app:suppliers_delete' supplier.id %}">Delete This Supplier</a>
+
+{% endblock content %}
