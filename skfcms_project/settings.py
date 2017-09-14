@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     #Custom App
     'ecom_app',
+    'commons_app',
 ]
 
 MIDDLEWARE = [
