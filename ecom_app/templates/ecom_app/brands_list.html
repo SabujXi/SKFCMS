@@ -1,0 +1,18 @@
+{% extends 'ecom_app/base.html' %}
+{% block title %}All Brands list{% endblock title %}
+{% block content %}
+    Brands list: <br>
+
+    <ol>
+    {% for brand in brands %}
+        <li>
+            {{ brand.name }} | <a href="{% url 'ecom_app:brands_form' brand.id %}">Edit</a> | <a href="{% url 'ecom_app:brands_delete' brand.id %}">Delete</a> | <a href="{% url 'ecom_app:brands_view' brand.id %}">View</a>
+        </li>
+    {% endfor %}
+    </ol>
+
+    <hr>
+
+    <a href="{% url 'ecom_app:brands_form' '' %}"> Add New Brand</a> | <a href="{% url 'ecom_app:brands_list' %}"> All Brands List</a>
+
+{% endblock content %}

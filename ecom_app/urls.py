@@ -22,6 +22,13 @@ from ecom_app.views.product_view import (
 	product_delete,
 	)
 
+from ecom_app.views.brands_views import (
+	BrandsCreateOrEditView,
+	BrandsListView,
+	BrandsViewView,
+	BrandsDeleteView
+)
+
 urlpatterns = [
     url(r'^$', front_index_view, name='front-index'),
     url(r'^admin/$', back_index_view, name='back-index'),
@@ -39,4 +46,11 @@ urlpatterns = [
     url(r'^prod-list/$', product_list_view, name='prod-list'),
     url(r'^prod-single/([0-9]+)$', product_single_view, name='prod-single'),
     url(r'^prod-del/([0-9]+)$', product_delete, name='prod-del'),
+    
+    
+    
+    url(r'^brand-form/(?P<brands_id>[0-9]*)$', BrandsCreateOrEditView.as_view(), name='brands_form'),
+    url(r'^brand-list$', BrandsListView, name='brands_list'),
+    url(r'^brand-view/([0-9]+)$', BrandsViewView, name='brands_view'),
+    url(r'^brand-delete/([0-9]+)$', BrandsDeleteView, name='brands_delete'),
 ]
