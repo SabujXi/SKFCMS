@@ -1,0 +1,13 @@
+{% extends 'ecom_app/backend/base.html' %}
+
+{% block title %}{{title}}{% endblock title %}
+
+
+
+{% block content %}
+    <div class="cat-prod-menu">
+    	<a href="{% url 'ecom_app:prod-menu' %}">Product</a> | 
+    	<a href="{% url 'ecom_app:cat-menu' %}">Category</a> |
+    	<a href="#">Tags</a>
+    </div>
+{% endblock content %}
