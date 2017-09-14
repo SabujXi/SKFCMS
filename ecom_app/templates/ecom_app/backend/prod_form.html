@@ -1,0 +1,54 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %}{{title}}{% endblock title %}
+
+
+
+{% block msg %}
+    <p>{{msg}}</p>
+{% endblock msg %}
+
+{% block content %}
+    <form action="{% url 'ecom_app:prod-form' prod.id %}" method="POST">
+        {% csrf_token %}
+        Product Name :<br>
+        <input type="text" name="name" value="{{prod.name}}" ><br><br>
+        Category Name :<br>
+        <select name="category"  multiple='True' class="list-item-multi">
+        {% with product_categories=prod.category.all %}
+        <!-- Not understand about prod.category.all -->
+
+            {% for cat in cats %}
+                <option value="{{ cat.id }}"
+                    {% for c in product_categories %}
+                        {% if c.id == cat.id %}
+                            selected="selected"
+                        {% endif %}
+                    {% endfor %}
+                >
+                    {{ cat.name }}
+                </option>
+            {% endfor %}
+
+        {% endwith %}
+        </select><br><br>
+        Short Desc. : <br>
+        <input type="text" name="short_desc" value="{{prod.short_description}}" ><br><br>
+        Description :<br>
+        <textarea name="desc">{{prod.description}}</textarea><br>
+        Price : <br>
+        <input type="number" name="price" value="{{prod.price}}" ><br><br>
+        Discount : <br>
+        <input type="number" name="discount" value="{{prod.discount}}" ><br><br>
+        Status :<br>
+        <select name="status" class="list-item-single">
+            <option value="A">Available</option>
+            <option value="U">Unavailable</option>
+        </select><br><br>
+        Image url :<br>
+        <input type="text" name="imageurl" value="{{prod.imageurl}}" ><br><br>
+        <input type="submit" name="submit" value="submit">
+    </form>
+    <br>
+<a href="{% url 'ecom_app:prod-list' %}">Product List</a> | <a href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
+
+{% endblock content %}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock title %}</title>
+    <style type="text/css">
+    	body{
+			margin: 0px;
+			padding: 0px;
+			border:0px;
+		}
+		.wrapper{
+			width:100%;
+			overflow: hidden;
+		}
+		.header-title, .header-title a {
+			padding:10px 5px;
+			margin:0px;
+			width:100%;
+			font-size:18px;
+			font-weight: bold;
+			color:white;
+			background: #ccc;
+			text-decoration: none !important;
+		}
+		.content-block{
+			padding:10px;
+		}
+		.list-item-multi{
+			width:170px;
+			height: 80px;
+		}
+		.list-item-single{
+			width:170px;
+		}
+		.cat-prod-menu{
+			width:600px;
+			margin:200px auto;
+			text-align: center;
+		}
+		.prod-img{
+			width:50px;
+			height:50px;
+		}
+    </style>
+</head>
+<body>
+	<div class="wrapper">
+		{% block header %}
+			<div class="header-title">
+				<a href="{% url 'ecom_app:back-index' %}">Ecom Admin Panel</a>
+			</div>
+		{% endblock header %}
+		
+		<div class="content-block">
+			{% block msg %}
+			
+			{% endblock msg %}
+
+			{% block content %}
+
+			{% endblock content %}
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %}{{title}}{% endblock title %}
+{% block content %}
+    Category list: <br>
+
+
+{% if cats %}
+<table border="1" width="500">
+<tr>
+	<td align="center"><b>SL</b></td>
+	<td align="center"><b>Name</b></td>
+	<td align="center"><b>Description</b></td>
+	<td colspan="3" align="center"><b>Action</b></td>
+
+</tr>
+    {% for cat in cats %} 
+        <tr>
+        	<td align="center">{{forloop.counter}}</td>
+        	<td>{{ cat.name }}</td>
+        	<td>{{ cat.description }}</td>
+        	<td align="center"><a href="{% url 'ecom_app:cat-single' cat.id %}">View</a></td>
+        	<td align="center"><a href="{% url 'ecom_app:cat-form' cat.id %}">Edit</a></td>
+        	<td align="center"><a href="{% url 'ecom_app:cat-conf-del' cat.id %}">Delete</a></td>
+        </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+	<p>Category not found!</p>
+{% endif %}
+    <br>
+	<a href="{% url 'ecom_app:cat-form' '' %}">Add New</a>
+{% endblock content %}
