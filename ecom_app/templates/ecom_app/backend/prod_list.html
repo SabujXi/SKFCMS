@@ -5,7 +5,7 @@
 
 {% if prods %}
 
-<table border="1" width="800">
+<table border="1">
 <tr>
 	<td align="center"><b>SL</b></td>
     <td align="center"><b>Image</b></td>
@@ -15,6 +15,7 @@
     <td align="center"><b>Price</b></td>
     <td align="center"><b>Discount</b></td>
     <td align="center"><b>Actual Price</b></td>
+    <td align="center"><b>Brand</b></td>
 	<td colspan="3" align="center"><b>Action</b></td>
 
 </tr>
@@ -33,7 +34,9 @@
                     </td>
                     <td align="center">{{ prod.price }}</td>
                     <td align="center">{{ prod.discount }}</td>
-                    <td align="center"></td>
+                    <td align="center">0.00</td>
+                    <td align="center">{{ prod.brands_id }}</td>
+
                 	<td align="center"><a href="{% url 'ecom_app:prod-single' prod.id %}">View</a></td>
                 	<td align="center"><a href="{% url 'ecom_app:prod-form' prod.id %}">Edit</a></td>
                 	<td align="center"><a href="{% url 'ecom_app:prod-del' prod.id %}">Delete</a></td>

@@ -1,46 +1,46 @@
 from django.conf.urls import url
 #from . import views
 
-from ecom_app.views.index_view import (
+# Frontend Part
+from ecom_app.views.frontend.index_view import (
 	front_index_view,
-	back_index_view,
-	product_menu_view,
-	category_menu_view,
+	)
+
+from ecom_app.views.frontend.product_view import (
+	category_porduct_view, brand_porduct_view,
+	)
+
+
+# Backend Part
+from ecom_app.views.backend.index_view import (
+	back_index_view, product_menu_view, category_menu_view,
 	)
 	
-from ecom_app.views.category_view import (
-	CrudCategory,
-	category_list_view,
-	category_single_view,
-	category_conf_del,
-	category_delete,
+from ecom_app.views.backend.category_view import (
+	CrudCategory, category_list_view, category_single_view, category_conf_del, category_delete,
 	)
 
-from ecom_app.views.product_view import (
-	CrudProduct,
-	product_list_view,
-	product_single_view,
-	product_delete,
+from ecom_app.views.backend.product_view import (
+	CrudProduct, product_list_view, product_single_view, product_delete,
 	)
 
-from ecom_app.views.brands_views import (
-	BrandsCreateOrEditView,
-	BrandsListView,
-	BrandsViewView,
-	BrandsDeleteView
-)
+from ecom_app.views.backend.brands_view import (
+	BrandsCreateOrEditView, BrandsListView, BrandsViewView, BrandsDeleteView
+	)
 
-from ecom_app.views.suppliers_views import (
-	SuppliersCreateOrEditView,
-	SuppliersListView,
-	SuppliersViewView,
-	SuppliersDeleteView
-)
+from ecom_app.views.backend.suppliers_view import (
+	SuppliersCreateOrEditView, SuppliersListView, SuppliersViewView, SuppliersDeleteView
+	)
 
 urlpatterns = [
 
 	# url pattern for main url
     url(r'^$', front_index_view, name='front-index'),
+    url(r'^category/(?P<cat_id>[0-9]*)$', category_porduct_view, name='cat-product'),
+    url(r'^brands/(?P<brand_id>[0-9]*)$', brand_porduct_view, name='brand-product'),
+
+
+
     url(r'^admin/$', back_index_view, name='back-index'),
 
 	# url pattern for menu 
@@ -62,7 +62,7 @@ urlpatterns = [
     
 	# url pattern for brands
     url(r'^brand-form/(?P<brands_id>[0-9]*)$', BrandsCreateOrEditView.as_view(), name='brands_form'),
-    url(r'^brand-list$', BrandsListView, name='brands_list'),
+    url(r'^brand-list/$', BrandsListView, name='brands_list'),
     url(r'^brand-view/([0-9]+)$', BrandsViewView, name='brands_view'),
     url(r'^brand-delete/([0-9]+)$', BrandsDeleteView, name='brands_delete'),
 	

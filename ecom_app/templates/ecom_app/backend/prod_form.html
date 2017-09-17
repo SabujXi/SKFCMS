@@ -31,6 +31,20 @@
 
         {% endwith %}
         </select><br><br>
+        Brand Name :<br>
+        <select name="brand"  class="list-item-single">
+            <option value="">--- Select Brand ---</option>
+            {% for brand in brands %}
+            <option value="{{brand.id}}">{{brand.name}}</option>
+            {% endfor %}
+        </select><br><br>
+        Supplier Name :<br>
+        <select name="supplier"  class="list-item-single">
+            <option value="">--- Select Supplier ---</option>
+            {% for supplier in suppliers %}
+            <option value="{{supplier.id}}">{{supplier.name}}</option>
+            {% endfor %}
+        </select><br><br>
         Short Desc. : <br>
         <input type="text" name="short_desc" value="{{prod.short_description}}" ><br><br>
         Description :<br>
