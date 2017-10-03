@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party
+    "bootstrapform",
+
     #Custom App
     'ecom_app',
     'commons_app',

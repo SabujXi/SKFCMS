@@ -1,0 +1,18 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% load bootstrap %}
+{% block title %}Menu Form{% endblock title %}
+
+{% block msg %}
+    <p>{{msg}}</p>
+{% endblock msg %}
+
+{% block content %}
+    <div class="container">
+        <form action="{% url 'ecom_app:create_menu' menu_id %}" method="POST">
+            {% csrf_token %}
+            {{ menu_form|bootstrap_horizontal }}
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+{% endblock content %}
