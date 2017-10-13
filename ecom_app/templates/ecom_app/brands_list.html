@@ -6,7 +6,7 @@
     <ol>
     {% for brand in brands %}
         <li>
-            {{ brand.name }} | <a href="{% url 'ecom_app:brands_form' brand.id %}">Edit</a> | <a href="{% url 'ecom_app:brands_delete' brand.id %}">Delete</a> | <a href="{% url 'ecom_app:brands_view' brand.id %}">View</a>
+            {{ brand.name }} | <a href="{% url 'ecom_app:brands-form' brand.id %}">Edit</a> | <a href="{% url 'ecom_app:brands_delete' brand.id %}">Delete</a> | <a href="{% url 'ecom_app:brands_view' brand.id %}">View</a>
         </li>
     {% endfor %}
     </ol>
