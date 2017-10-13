@@ -1,21 +1,26 @@
 {% extends 'ecom_app/backend/base.html' %}
 {% block title %}{{title}}{% endblock title %}
 
-
+{% block heading %}{{heading}}{% endblock heading %}
 
 {% block msg %}
     <p>{{msg}}</p>
 {% endblock msg %}
 
 {% block content %}
+<div class="col-md-8 col-md-offset-2">
     <form action="{% url 'ecom_app:prod-form' prod.id %}" method="POST">
         {% csrf_token %}
-        Product Name :<br>
-        <input type="text" name="name" value="{{prod.name}}" ><br><br>
+      <div class="form-group">
+        <label for="ProductName">Product Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Product Name" value="{{prod.name}}" >
+      </div>
         Category Name :<br>
-        <select name="category"  multiple='True' class="list-item-multi">
-        {% with product_categories=prod.category.all %}
-        <!-- Not understand about prod.category.all -->
+      <div class="form-group">
+        <label for="Select">Category Name</label>
+        <select name="category" multiple class="form-control">
+            {% with product_categories=prod.category.all %}
+            <!-- Not understand about prod.category.all -->
 
             {% for cat in cats %}
                 <option value="{{ cat.id }}"
@@ -29,40 +34,60 @@
                 </option>
             {% endfor %}
 
-        {% endwith %}
-        </select><br><br>
-        Brand Name :<br>
-        <select name="brand"  class="list-item-single">
-            <option value="">--- Select Brand ---</option>
-            {% for brand in brands %}
-            <option value="{{brand.id}}">{{brand.name}}</option>
-            {% endfor %}
-        </select><br><br>
-        Supplier Name :<br>
-        <select name="supplier"  class="list-item-single">
-            <option value="">--- Select Supplier ---</option>
-            {% for supplier in suppliers %}
-            <option value="{{supplier.id}}">{{supplier.name}}</option>
-            {% endfor %}
-        </select><br><br>
-        Short Desc. : <br>
-        <input type="text" name="short_desc" value="{{prod.short_description}}" ><br><br>
-        Description :<br>
-        <textarea name="desc">{{prod.description}}</textarea><br>
-        Price : <br>
-        <input type="number" name="price" value="{{prod.price}}" ><br><br>
-        Discount : <br>
-        <input type="number" name="discount" value="{{prod.discount}}" ><br><br>
-        Status :<br>
-        <select name="status" class="list-item-single">
-            <option value="A">Available</option>
-            <option value="U">Unavailable</option>
-        </select><br><br>
-        Image url :<br>
-        <input type="text" name="imageurl" value="{{prod.imageurl}}" ><br><br>
-        <input type="submit" name="submit" value="submit">
+            {% endwith %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="Select">Brand Name </label>
+            <select name="brand" class="form-control">
+                <option value="">--- Select Brand ---</option>
+                {% for brand in brands %}
+                <option value="{{brand.id}}">{{brand.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="Select">Supplier </label>
+            <select name="supplier" class="form-control">
+                <option value="">--- Select Supplier ---</option>
+                {% for supplier in suppliers %}
+                <option value="{{supplier.id}}">{{supplier.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+      <div class="form-group">
+        <label for="ShortDescription">Short Description</label>
+        <input type="text" class="form-control" name="short_desc" placeholder="Short Description" value="{{prod.short_description}}" >
+      </div>
+      <div class="form-group">
+        <label for="Description">Description</label>
+        <textarea class="form-control" name="desc" row=3>{{prod.description}}</textarea>
+      </div>        
+      <div class="form-group">
+        <label for="Price">Price</label>
+        <input type="number" class="form-control" name="price" placeholder="Price" value="{{prod.price}}">
+      </div>
+      <div class="form-group">
+        <label for="Discount">Discount</label>
+        <input type="number" class="form-control" name="discount" placeholder="Discount" value="{{prod.discount}}">
+      </div>
+      <div class="form-group">
+            <label for="Status">Status </label>
+                <select name="status" class="form-control">
+                    <option value="A">Available</option>
+                    <option value="U">Unavailable</option>
+                </select>
+      </div>
+      <div class="form-group">
+        <label for="ImageUrl">Image Url</label>
+        <input type="text" class="form-control" name="imageurl" placeholder="Image Url" value="{{prod.imageurl}}">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
     </form>
-    <br>
-<a href="{% url 'ecom_app:prod-list' %}">Product List</a> | <a href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
+</div>
 
 {% endblock content %}

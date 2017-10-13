@@ -1,0 +1,41 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %}All Brands list{% endblock title %}
+
+{% block heading %}{{heading}}{% endblock heading %}
+
+
+{% block content %}
+<div style="width:100%; overflow: hidden;">
+    <a class="btn btn-success btn-xs pull-right" role="button" href="{% url 'ecom_app:brands-form' '' %}">Add New</a>
+</div>
+{% if brands %}
+<div class="table-responsive">
+    <table class="table table-striped"> 
+
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for brand in brands %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{ brand.name }}</td>
+            <td>{{ brand.description }}</td>
+            <td class="text-center" style="width:200px;">
+                <a class="btn btn-warning btn-xs" role="button" href="{% url 'ecom_app:brands-form' brand.id %}">Edit</a>
+                <a class="btn btn-danger btn-xs" role="button" href="{% url 'ecom_app:brands_delete' brand.id %}">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+    <p>Brands not found!</p>
+{% endif %}
+{% endblock content %}

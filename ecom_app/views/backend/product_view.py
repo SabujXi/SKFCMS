@@ -9,6 +9,7 @@ from django.views import View
 class CrudProduct(View):
 	template='ecom_app/backend/prod_form.html'
 	title='Product Form'
+	heading='Product Form'
 	cats=models.Category.objects.all()
 	brands=models.Brands.objects.all()
 	suppliers=models.Suppliers.objects.all()
@@ -18,11 +19,11 @@ class CrudProduct(View):
 		if prod_id:
 			prod_id=int(prod_id)
 			prod=models.Product.objects.get(pk=prod_id)
-			context={'prod':prod, 'cats':self.cats, 'brands':self.brands, 'suppliers':self.suppliers, 'title':self.title}
+			context={'prod':prod, 'cats':self.cats, 'brands':self.brands, 'suppliers':self.suppliers, 'title':self.title, 'heading':self.heading}
 
 			return render(request, self.template, context)
 		else:
-			context={'cats':self.cats,'brands':self.brands, 'suppliers':self.suppliers, 'title':self.title}
+			context={'cats':self.cats,'brands':self.brands, 'suppliers':self.suppliers, 'title':self.title, 'heading':self.heading}
 			return render(request, self.template, context)
 	
 	def post(self, request, prod_id=None):
@@ -61,7 +62,7 @@ class CrudProduct(View):
 			prod.save()
 			#prod.category.related_set = categories
 			msg='Data updated...'
-			context={'cats':self.cats, 'prod':prod, 'suppliers':self.suppliers, 'msg':msg, 'title':self.title}
+			context={'cats':self.cats, 'prod':prod, 'suppliers':self.suppliers, 'msg':msg, 'title':self.title, 'heading':self.heading}
 			return render(request, self.template, context)
 		else:
 			prod=models.Product(
@@ -78,16 +79,17 @@ class CrudProduct(View):
 
 			#prod.category.add(category) This line for single category value
 			msg='Data inserted...'
-			context={'cats':self.cats, 'msg':msg, 'suppliers':self.suppliers, 'title':self.title}
+			context={'cats':self.cats, 'msg':msg, 'suppliers':self.suppliers, 'title':self.title, 'heading':self.heading}
 			return render(request, self.template, context)
 
 
 def product_list_view(request):
 	template='ecom_app/backend/prod_list.html'
 	title='Product List'
+	heading='Product List'
 	prods=models.Product.objects.all()
 
-	context={'prods':prods, 'title':title}
+	context={'prods':prods, 'title':title, 'heading':heading}
 
 	return render(request, template, context)
 

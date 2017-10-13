@@ -1,53 +1,56 @@
 {% extends 'ecom_app/backend/base.html' %}
 {% block title %}{{title}}{% endblock title %}
+
+
+{% block heading %}{{heading}}{% endblock heading %}
+
+
 {% block content %}
-    Product list: <br>
-
+<div style="width:100%; overflow: hidden;">
+    <a class="btn btn-success btn-xs pull-right" role="button" href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
+</div>
 {% if prods %}
+<div class="table-responsive">
+    <table class="table table-striped"> 
 
-<table border="1">
-<tr>
-	<td align="center"><b>SL</b></td>
-    <td align="center"><b>Image</b></td>
-    <td align="center"><b>Name</b></td>
-	<td align="center"><b>Description</b></td>
-    <td align="center"><b>Category</b></td>
-    <td align="center"><b>Price</b></td>
-    <td align="center"><b>Discount</b></td>
-    <td align="center"><b>Actual Price</b></td>
-    <td align="center"><b>Brand</b></td>
-	<td colspan="3" align="center"><b>Action</b></td>
-
-</tr>
-
-        {% for prod in prods %}
-            {% with product_categories=prod.category.all %}
-                <tr>
-                	<td align="center">{{forloop.counter}}</td>
-                    <td><img src="{{ prod.imageurl }}" class="prod-img" ></td>
-                	<td>{{ prod.name }}</td>
-                	<td>{{ prod.description }}</td>
-                    <td>
-                        {% for cat in product_categories %}
-                            {{cat.name}},
-                        {% endfor %}
-                    </td>
-                    <td align="center">{{ prod.price }}</td>
-                    <td align="center">{{ prod.discount }}</td>
-                    <td align="center">0.00</td>
-                    <td align="center">{{ prod.brands_id }}</td>
-
-                	<td align="center"><a href="{% url 'ecom_app:prod-single' prod.id %}">View</a></td>
-                	<td align="center"><a href="{% url 'ecom_app:prod-form' prod.id %}">Edit</a></td>
-                	<td align="center"><a href="{% url 'ecom_app:prod-del' prod.id %}">Delete</a></td>
-                </tr>
-            {% endwith %}
-        {% endfor %}
-
-</table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Discount</th>
+          <th>Actual Price</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for prod in prods %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td><img src="{{ prod.imageurl }}" style="width:50px; height: 50px; padding:2px; border: 1px solid red;" ></td>
+            <td>{{ prod.name }}</td>
+            <td>{{ prod.description }}</td>
+            <td>
+                {% for cat in product_categories %}
+                    {{cat.name}},
+                {% endfor %}
+            </td>
+            <td align="center">{{ prod.price }}</td>
+            <td align="center">{{ prod.discount }}</td>
+            <td align="center">0.00</td>
+            <td class="text-center" style="width:200px;">
+                <a class="btn btn-warning btn-xs" role="button" href="{% url 'ecom_app:prod-form' prod.id %}">Edit</a>
+                <a class="btn btn-danger btn-xs" role="button" href="{% url 'ecom_app:prod-del' prod.id %}">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% else %}
-	<p>Product not found!</p>
+    <p>Product not found!</p>
 {% endif %}
-    <br>
-	<a href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
 {% endblock content %}
