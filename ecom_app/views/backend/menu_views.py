@@ -5,6 +5,8 @@ from django.views import View
 from django import forms
 # from dynamic_menu_module.menu import Menu
 from ecom_app.forms.menu_form import MenuForm
+from django.db.models import Q
+from django.contrib import messages
 
 class CreateEditMenuView(View):
     template = 'ecom_app/backend/menu_form.html'
@@ -18,6 +20,7 @@ class CreateEditMenuView(View):
         return choices
 
     def get(self, req: HttpRequest, menu_id=None): # type hinted req
+        do_edit = False
 
         if menu_id:
             print("Menu Id: ", menu_id)
@@ -28,7 +31,9 @@ class CreateEditMenuView(View):
                 menu = None
         else:
             menu = None
+
         if menu:
+            do_edit = True
             form = MenuForm({
                 "name": menu.name,
                 "description": menu.description,
@@ -41,12 +46,12 @@ class CreateEditMenuView(View):
         else:
             form = MenuForm()
 
-        if not menu_id:
+        if not do_edit:
             menus = models.MenuModel.objects.all()
             parent_choices = self.parent_choice_builder(menus)
             form.fields["parent"] = forms.ChoiceField(required=False, choices=parent_choices, label="Select Parent")
         else:
-            menus = models.MenuModel.objects.filter(parent__ne=menu_id)
+            menus = models.MenuModel.objects.filter(~Q(parent=menu_id))
             parent_choices = self.parent_choice_builder(menus)
             form.fields["parent"] = forms.ChoiceField(required=False, choices=parent_choices, label="Select Parent")
         # print(dir(form))
@@ -58,37 +63,41 @@ class CreateEditMenuView(View):
     def post(self, req: HttpRequest, menu_id=None):
         if menu_id:
             menu_id = int(menu_id)
+            menu = models.MenuModel.objects.get(pk=menu_id)
+        else:
+            menu = models.MenuModel()
 
+        # building choices
         if not menu_id:
             menus = models.MenuModel.objects.all()
             parent_choices = self.parent_choice_builder(menus)
             form = MenuForm(req.POST)
             form.fields["parent"] = forms.ChoiceField(required=False, choices=parent_choices, label="Select Parent")
         else:
-            menus = models.MenuModel.objects.filter(parent__ne=menu_id)
+            menus = models.MenuModel.objects.filter(~Q(parent=menu_id))
             parent_choices = self.parent_choice_builder(menus)
             form = MenuForm(req.POST)
             form.fields["parent"] = forms.ChoiceField(required=False, choices=parent_choices, label="Select Parent")
+        # < building choices
 
         if not form.is_valid():
             return render(req, self.template, context={
                 'menu_form': form,
                 "menu_id": menu_id
             })
+
         else:
             cd = form.cleaned_data
             name = cd["name"]
             description = cd["description"]
-            type = cd["type"]
+            m_type = cd["type"]
             content = cd["content"]
             serial_no = cd["serial_no"]
             parent = cd["parent"]
             disabled = cd["disabled"]
-
-            menu = models.MenuModel()
             menu.name = name
             menu.description = description
-            menu.type = type
+            menu.type = m_type
 
             # > content block
 
@@ -97,7 +106,7 @@ class CreateEditMenuView(View):
 
             menu.serial_no = serial_no
 
-            if parent != "-1" or parent != "":
+            if parent != "-1" and parent != "":
                 parent_id = int(parent)
                 parent = models.MenuModel.objects.get(pk=parent_id)
                 menu.parent = parent
@@ -105,7 +114,7 @@ class CreateEditMenuView(View):
             menu.disabled = disabled
             menu.save()
 
-            return redirect("ecom_app:create_menu", menu.id)
+            return redirect("ecom_app:create_edit_menu", menu.id)
 
 """
 menus = models.MenuModel.objects.all()
@@ -115,8 +124,20 @@ def menu_list_view(request):
     template='ecom_app/backend/menu_list.html'
     title='Menu List'
     heading='Menu List'
-    #prods=models.Product.objects.all()
+    menus=models.MenuModel.objects.all()
 
-    context={'title':title, 'heading':heading}
+    # test purpose
+    random_content = ""
+    from dynamic_menu_module.menu import menu_processor
+    menu_root = menu_processor(menus)
+    random_content = str(menu_root)
+    # < test purpose
+
+    context={'title':title, 'heading':heading, 'menus':menus, "random_content": random_content}
 
     return render(request, template, context)
+
+def menu_delete_view(request, menu_id = None):
+    models.MenuModel.objects.get(pk=menu_id).delete()
+    messages.info(request, "Menu successfully deleted with id %s." % menu_id)
+    return redirect("ecom_app:menu-list")

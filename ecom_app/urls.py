@@ -33,7 +33,7 @@ from ecom_app.views.backend.suppliers_view import (
 	)
 
 from ecom_app.views.backend.menu_views import (
-    CreateEditMenuView, menu_list_view
+    CreateEditMenuView, menu_list_view, menu_delete_view
 )
 
 urlpatterns = [
@@ -79,6 +79,6 @@ urlpatterns = [
 
     # url(r'^menu/$', menu_views, name='menu'),
     url(r'^menu-list$', menu_list_view, name='menu-list'),
-    url(r'^create-menu/(?P<menu_id>[0-9]*)$', CreateEditMenuView.as_view(), name='create-menu'),
-
+    url(r'^menu-delete/(?P<menu_id>[0-9]+)$', menu_delete_view, name='delete_menu'),
+    url(r'^create-edit-menu/(?P<menu_id>[0-9]*)$', CreateEditMenuView.as_view(), name='create_edit_menu'),
 ]
