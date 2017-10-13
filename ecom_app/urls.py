@@ -32,8 +32,8 @@ from ecom_app.views.backend.suppliers_view import (
 	SuppliersCreateOrEditView, SuppliersListView, SuppliersViewView, SuppliersDeleteView
 	)
 
-from ecom_app.views.frontend.menu_views import (
-    CreateEditMenuView
+from ecom_app.views.backend.menu_views import (
+    CreateEditMenuView, menu_list_view
 )
 
 urlpatterns = [
@@ -65,8 +65,8 @@ urlpatterns = [
     url(r'^prod-del/([0-9]+)$', product_delete, name='prod-del'),
 
 	# url pattern for brands
-    url(r'^brand-form/(?P<brands_id>[0-9]*)$', BrandsCreateOrEditView.as_view(), name='brands_form'),
-    url(r'^brand-list/$', BrandsListView, name='brands_list'),
+    url(r'^brand-form/(?P<brands_id>[0-9]*)$', BrandsCreateOrEditView.as_view(), name='brands-form'),
+    url(r'^brand-list/$', BrandsListView, name='brands-list'),
     url(r'^brand-view/([0-9]+)$', BrandsViewView, name='brands_view'),
     url(r'^brand-delete/([0-9]+)$', BrandsDeleteView, name='brands_delete'),
 
@@ -78,6 +78,7 @@ urlpatterns = [
 
 
     # url(r'^menu/$', menu_views, name='menu'),
-    url(r'^create-menu/(?P<menu_id>[0-9]*)$', CreateEditMenuView.as_view(), name='create_menu'),
+    url(r'^menu-list$', menu_list_view, name='menu-list'),
+    url(r'^create-menu/(?P<menu_id>[0-9]*)$', CreateEditMenuView.as_view(), name='create-menu'),
 
 ]

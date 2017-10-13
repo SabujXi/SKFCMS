@@ -95,9 +95,10 @@ def cat_form_view(request, cat_id):
 def category_list_view(request):
 	template='ecom_app/backend/cat_list.html'
 	title='Category List'
+	heading='Category List'
 	cats=models.Category.objects.all()
 
-	context={'cats':cats, 'title':title}
+	context={'cats':cats, 'title':title, 'heading':heading}
 
 	return render(request, template, context)
 

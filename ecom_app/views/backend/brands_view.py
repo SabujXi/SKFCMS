@@ -2,24 +2,31 @@ from django.shortcuts import render, redirect
 from ecom_app import models
 from django.views import View
 
+
+
+
+
 class BrandsCreateOrEditView(View):
-    template = 'ecom_app/brands_form.html'
+    template = 'ecom_app/backend/brands_form.html'
+    heading = 'Brand Form'
 
     def get(self, req, brands_id=None):
         if brands_id:
             brands_id = int(brands_id)
             brands = models.Brands.objects.get(id=brands_id)
             return render(req, self.template, context={
-                'brand': brands
+                'brand': brands, 'heading':self.heading
             })
         else:
-            return render(req, self.template)
+            return render(req, self.template, context={
+                'heading':self.heading
+            })
 
     def post(self, req, brands_id=None):
 
         name = req.POST['name']
         slug = req.POST['slug']
-        description = req.POST['description']
+        description = req.POST['desc']
 
         if brands_id:
             brands_id = int(brands_id)
@@ -40,13 +47,15 @@ class BrandsCreateOrEditView(View):
 
         return render(req, self.template, context={
             'msg': msg,
-            'brand': brand
+            'brand': brand,
+            'heading':self.heading
         })
 
 def BrandsListView(req):
     brands = models.Brands.objects.all()
-    return render(req, 'ecom_app/brands_list.html', context={
-        'brands': brands
+    return render(req, 'ecom_app/backend/brands_list.html', context={
+        'brands': brands,
+        'heading': 'Brands List'
     })
 
 def BrandsViewView(req, brands_id):

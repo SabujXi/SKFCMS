@@ -8,18 +8,26 @@
 {% endif %}
 
 {% block content %}
-    <hr>
-    <form action="{% url 'ecom_app:brands_form' brand.id %}" method="post">
+
+
+
+<div class="col-md-8 col-md-offset-2">
+    <form action="{% url 'ecom_app:brands-form' brand.id %}" method="post">
         {% csrf_token %}
-        Brands Name :<br>
-        <input type="text" value="{{ brand.name }}" name="name"><br>
-    Brands Slug :<br>
-        <input type="text" value="{{ brand.slug }}" name="slug"><br>
-    Brands Description :<br>
-        <textarea name="description">{{ brand.description }}</textarea> <br>
-        <input type="submit" name="submit" value="submit">
+      <div class="form-group">
+        <label for="BrandName">Brand Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Brand Name" value="{{ brand.name }}" >
+      </div>
+      <div class="form-group">
+        <label for="BrandSlug">Brand Slug</label>
+        <input type="text" class="form-control" name="slug" placeholder="slug" value="{{ brand.slug }}" >
+      </div>
+      <div class="form-group">
+        <label for="BrandDescription" >Brand Description</label>
+        <textarea class="form-control" name="desc" rows="3">{{ brand.description }}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:brands-form' '' %}">Add New</a>
     </form>
-    
-    <hr>
-    <a href="{% url 'ecom_app:brands_list' %}"> All Brands List</a> | <a href="{% url 'ecom_app:brands_form' '' %}">Add New Brand</a>
+</div> 
 {% endblock content %}

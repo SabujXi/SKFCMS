@@ -1,0 +1,40 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %}{{title}}{% endblock title %}
+
+{% block heading %}{{heading}}{% endblock heading %}
+
+
+{% block content %}
+<div style="width:100%; overflow: hidden;">
+    <a class="btn btn-success btn-xs pull-right" role="button" href="{% url 'ecom_app:create-menu' '' %}">Add New</a>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped"> 
+
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Description</th>
+		  <th>Parent</th>
+		  <th>Type</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+            <td class="text-center" style="width:200px;">
+                <a class="btn btn-warning btn-xs" role="button" href="#">Edit</a>
+                <a class="btn btn-danger btn-xs" role="button" href="#">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- <p>Menu not found!</p> -->
+{% endblock content %}

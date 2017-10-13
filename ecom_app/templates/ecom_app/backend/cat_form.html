@@ -9,16 +9,24 @@
 {% endblock msg %}
 
 {% block content %}
+<div class="col-md-8 col-md-offset-2">
     <form action="{% url 'ecom_app:cat-form' cat.id %}" method="POST">
         {% csrf_token %}
-        Category Name :<br>
-        <input type="text" name="name" value="{{ cat.name }}"><br><br>
-    Category Slug :<br>
-        <input type="text" name="slug" value="{{ cat.slug }}"><br><br>
-    Category Description :<br>
-        <textarea name="desc">{{ cat.description }}</textarea> <br><br>
-        <input type="submit" name="submit" value="submit">
+      <div class="form-group">
+        <label for="categoryName">Category Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Caegory Name" value="{{ cat.name }}" >
+      </div>
+      <div class="form-group">
+        <label for="CategorySlug">Category Slug</label>
+        <input type="text" class="form-control" name="slug" placeholder="slug" value="{{ cat.slug }}" >
+      </div>
+      <div class="form-group">
+        <label for="CategoryDescription" >Category Description</label>
+        <textarea class="form-control" name="desc" rows="3">{{ cat.description }}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:cat-form' '' %}">Add New</a>
     </form>
-    <br><br>
-    <a href="{% url 'ecom_app:cat-list' %}">Category List</a> | <a href="{% url 'ecom_app:cat-form' '' %}">Add New</a>
+</div>    
 {% endblock content %}
+
