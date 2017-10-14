@@ -36,6 +36,8 @@ from ecom_app.views.backend.menu_views import (
     CreateEditMenuView, menu_list_view, menu_delete_view
 )
 
+from ecom_app.views.frontend.upload_file_provider import upload_file_provider_view
+
 urlpatterns = [
 
 	# url pattern for main url
@@ -81,4 +83,5 @@ urlpatterns = [
     url(r'^menu-list$', menu_list_view, name='menu-list'),
     url(r'^menu-delete/(?P<menu_id>[0-9]+)$', menu_delete_view, name='delete_menu'),
     url(r'^create-edit-menu/(?P<menu_id>[0-9]*)$', CreateEditMenuView.as_view(), name='create_edit_menu'),
+    url(r'^upload_dir/(?P<file_path>.*)', upload_file_provider_view, name="upload_file_provider")
 ]

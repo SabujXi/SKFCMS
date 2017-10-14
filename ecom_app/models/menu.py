@@ -10,3 +10,6 @@ class MenuModel(models.Model):
     content = models.TextField(default="")
     serial_no = models.IntegerField(default=0)
     disabled = models.BooleanField()
+
+    def __str__(self):
+        return self.name

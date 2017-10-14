@@ -10,7 +10,7 @@
     <div class="container">
         <form action="{% url 'ecom_app:create_edit_menu' menu_id %}" method="POST">
             {% csrf_token %}
-            {{ menu_form|bootstrap_horizontal }}
+            {{ menu_form|bootstrap }}
             <button type="submit">Save</button>
         </form>
     </div>

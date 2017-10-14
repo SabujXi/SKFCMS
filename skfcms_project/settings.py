@@ -125,3 +125,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+FILE_UPLOAD_HANDLERS = ["django.core.files.uploadhandler.MemoryFileUploadHandler",
+ "django.core.files.uploadhandler.TemporaryFileUploadHandler"]
+
+# File upload dir
+UPLOAD_URI_PREFIX = "upload_dir"
+UPLOAD_DIR = BASE_DIR + os.sep + UPLOAD_URI_PREFIX
+if not os.path.exists(UPLOAD_DIR):
+    os.mkdir(UPLOAD_DIR)
+# < file upload dir

@@ -30,7 +30,7 @@
     {% for prod in prods %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td><img src="{{ prod.imageurl }}" style="width:50px; height: 50px; padding:2px; border: 1px solid red;" ></td>
+            <td><img src="{% url "ecom_app:upload_file_provider" prod.get_image_file_path %}" style="width:50px; height: 50px; padding:2px; border: 1px solid red;" ></td>
             <td>{{ prod.name }}</td>
             <td>{{ prod.description }}</td>
             <td>

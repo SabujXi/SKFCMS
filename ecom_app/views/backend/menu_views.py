@@ -5,6 +5,7 @@ from django.views import View
 from ecom_app.forms.menu_form import MenuForm
 from django.db.models import Q
 from django.contrib import messages
+from dynamic_menu_module.menu import menu_processor
 
 
 class CreateEditMenuView(View):
@@ -111,16 +112,14 @@ def menu_list_view(request):
     title='Menu List'
     heading='Menu List'
     menus=models.MenuModel.objects.all()
+    print(len(menus))
 
     # test purpose
-    random_content = ""
-    from dynamic_menu_module.menu import menu_processor
     menu_root = menu_processor(menus)
     random_content = str(menu_root)
     # < test purpose
 
     context={'title':title, 'heading':heading, 'menus':menus, "random_content": random_content}
-
     return render(request, template, context)
 
 

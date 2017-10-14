@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="col-md-8 col-md-offset-2">
-    <form action="{% url 'ecom_app:prod-form' prod.id %}" method="POST">
+    <form action="{% url 'ecom_app:prod-form' prod.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
       <div class="form-group">
         <label for="ProductName">Product Name</label>
@@ -83,7 +83,8 @@
       </div>
       <div class="form-group">
         <label for="ImageUrl">Image Url</label>
-        <input type="text" class="form-control" name="imageurl" placeholder="Image Url" value="{{prod.imageurl}}">
+          <input type="file" name="image_file" id="imageurl" class="imageurl">
+{#        <input type="text" class="form-control" name="imageurl" placeholder="Image Url" value="{{prod.imageurl}}">#}
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
       <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
