@@ -13,8 +13,10 @@ from ecom_app.views.frontend.product_view import (
 
 # Backend Part
 from ecom_app.views.backend.index_view import (
-	back_index_view, product_menu_view, category_menu_view,
+	back_index_view
 	)
+
+from ecom_app.views.backend.backend_settings_view import (CrudSiteSetting)
 
 from ecom_app.views.backend.category_view import (
 	CrudCategory, category_list_view, category_single_view, category_conf_del, category_delete,
@@ -48,10 +50,11 @@ urlpatterns = [
 
 
     url(r'^admin/$', back_index_view, name='back-index'),
+    url(r'^settings/(?P<site_id>[0-9]*)$', CrudSiteSetting.as_view(), name='site-settings'),
 
 	# url pattern for menu
-    url(r'^prod-menu/$', product_menu_view, name='prod-menu'),
-    url(r'^cat-menu/$', category_menu_view, name='cat-menu'),
+    #url(r'^prod-menu/$', product_menu_view, name='prod-menu'),
+    #url(r'^cat-menu/$', category_menu_view, name='cat-menu'),
 
 	# url pattern for category
     url(r'^cat-form/(?P<cat_id>[0-9]*)$', CrudCategory.as_view(), name='cat-form'),

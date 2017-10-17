@@ -1,0 +1,76 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %}{{title}}{% endblock title %}
+
+
+
+
+{% block msg %}
+    <p>{{msg}}</p>
+{% endblock msg %}
+
+{% block content %}
+<div class="col-md-8 col-md-offset-2">
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form method="POST" action="{% url 'ecom_app:site-settings' site.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+            <div class="form-group">
+              <label for="" >Site Title</label>
+                <input type="text" name="site_title" value="{{site.title}}" class="form-control" placeholder="Site Title">
+            </div>
+
+            <div class="form-group">
+              <label for="" >Chose Logo</label>
+                <input type="file" name="image_file">
+                <p class="help-block">
+                  <i>
+                    File must be in JPEG(.jpg or .jpeg) or GIF(.gif) or png format. 
+                    The height and width of the Applicant Photo must be equal(300x300). Max size 100KB
+                  </i>
+                </p>
+            </div>
+
+            <div class="form-group">
+              <label for="" >Meta Title</label>
+                <input type="text" name="meta_title" value="{{site.meta_title}}"  class="form-control" placeholder="Meta Title">
+            </div>
+
+            <div class="form-group">
+              <label for="" >Meta Description</label>
+                  <textarea rows="2" cols="98" name="meta_desc" class="form-control" placeholder="Meta Description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="" >Meta Keyword</label>
+
+                <input type="text" name="meta_keyword" value="{{site.meta_keyword}}" class="form-control" placeholder="Meta Keyword">
+            </div>
+            <div class="form-group">
+              <label for="" >Short Description</label>
+
+                  <textarea rows="2" cols="98" name="short_desc" class="form-control" placeholder="Short Description"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="" >Long Description</label>
+
+                  <textarea rows="4" cols="98" name="long_desc" class="form-control" placeholder="Long Description"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="" >Copyright</label>
+
+                <input type="text" name="copyright" value="{{site.copyright}}" class="form-control" placeholder="Copyright Description">
+            </div>
+            
+          <!-- /.box-body -->
+          <div class="box-footer">
+            <button type="submit" class="btn btn-info pull-right">Update</button>
+            <button type="submit" class="btn btn-default">Back</button>
+
+          </div>
+          <!-- /.box-footer -->
+        </form>
+</div>
+{% endblock content %}
+

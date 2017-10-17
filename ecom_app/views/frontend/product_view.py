@@ -7,7 +7,7 @@ from django.views import View
 
 
 def category_porduct_view(request, cat_id=None):
-	template='ecom_app/category_product.html'
+	template='ecom_app/frontend/category_product.html'
 	title='Category Products'
 	products = models.Product.objects.filter(category=cat_id)
 	category = models.Category.objects.get(pk=cat_id)

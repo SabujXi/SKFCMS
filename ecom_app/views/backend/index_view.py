@@ -9,10 +9,11 @@ from django.views import View
 # Create your views here.
 def back_index_view(request):
 	template='ecom_app/backend/index.html'
-	context={'title':'Ecom Admin Panel','heading':'Dashboard'}
+	context={'title':'E-Commerce Admin Panel','heading':'Dashboard'}
 	return render(request, template, context)
 
 
+'''
 def product_menu_view(request):
 	template='ecom_app/backend/prod_menu.html'
 	context={'title':'Product Menu'}
@@ -23,3 +24,4 @@ def category_menu_view(request):
 	template='ecom_app/backend/cat_menu.html'
 	context={'title':'Category Menu'}
 	return render(request, template, context)
+'''

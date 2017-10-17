@@ -8,6 +8,7 @@
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="{% static 'ecom_app/libs/bootstrap/css/bootstrap.min.css' %}">
 	<link href="{% static 'ecom_app/styles/css/admin-sidebar.css' %}" rel="stylesheet">
+  <link href="{% static 'ecom_app/styles/css/custom.css' %}" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -23,7 +24,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Settings</a></li>
+            <li><a href="{% url 'ecom_app:site-settings' '' %}">Settings</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Help</a></li>
           </ul>
@@ -48,7 +49,7 @@
           
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h4 class="page-header">{% block heading %}{% endblock heading %}</h4>
+          <h4 class="page-header">{% block heading %}{{heading}}{% endblock heading %}</h4>
 
           	{% block content %}
 

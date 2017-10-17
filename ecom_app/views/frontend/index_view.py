@@ -6,7 +6,7 @@ from django.views import View
 # Create your views here.
 
 def front_index_view(request):
-	template='ecom_app/index.html'
+	template='ecom_app/frontend/index.html'
 	title='Home Page'
 	products = models.Product.objects.all()
 	categories = models.Category.objects.all()
