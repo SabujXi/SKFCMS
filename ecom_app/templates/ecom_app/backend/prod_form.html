@@ -4,37 +4,36 @@
 {% block heading %}{{heading}}{% endblock heading %}
 
 {% block msg %}
-    <p>{{msg}}</p>
+<p>{{msg}}</p>
 {% endblock msg %}
 
 {% block content %}
 <div class="col-md-8 col-md-offset-2">
     <form action="{% url 'ecom_app:prod-form' prod.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-      <div class="form-group">
-        <label for="ProductName">Product Name</label>
-        <input type="text" class="form-control" name="name" placeholder="Product Name" value="{{prod.name}}" >
-      </div>
-        Category Name :<br>
-      <div class="form-group">
-        <label for="Select">Category Name</label>
-        <select name="category" multiple class="form-control">
-            {% with product_categories=prod.category.all %}
-            <!-- Not understand about prod.category.all -->
+        <div class="form-group">
+            <label for="ProductName">Product Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Product Name" value="{{prod.name}}">
+        </div>
+        <div class="form-group">
+            <label for="Select">Category Name</label>
+            <select name="category" multiple class="form-control">
+                {% with product_categories=prod.category.all %}
+                <!-- Not understand about prod.category.all -->
 
-            {% for cat in cats %}
+                {% for cat in cats %}
                 <option value="{{ cat.id }}"
-                    {% for c in product_categories %}
+                        {% for c in product_categories %}
                         {% if c.id == cat.id %}
                             selected="selected"
                         {% endif %}
-                    {% endfor %}
+                        {% endfor %}
                 >
                     {{ cat.name }}
                 </option>
-            {% endfor %}
+                {% endfor %}
 
-            {% endwith %}
+                {% endwith %}
             </select>
         </div>
 
@@ -42,9 +41,19 @@
             <label for="Select">Brand Name </label>
             <select name="brand" class="form-control">
                 <option value="">--- Select Brand ---</option>
-                {% for brand in brands %}
-                <option value="{{brand.id}}">{{brand.name}}</option>
-                {% endfor %}
+                {% with product_brands=prod.brands.all %}
+
+                    {% for brand in brands %}
+                        <option value="{{brand.id}}"
+                        {% for b in product_brands %}
+                           {% if b.id == brand.id %}
+                                selected="selected"
+                           {% endif %}
+                        {% endfor %}
+                        >{{brand.name}}</option>
+                    {% endfor %}
+
+                {% endwith %}
             </select>
         </div>
 
@@ -58,36 +67,36 @@
             </select>
         </div>
 
-      <div class="form-group">
-        <label for="ShortDescription">Short Description</label>
-        <input type="text" class="form-control" name="short_desc" placeholder="Short Description" value="{{prod.short_description}}" >
-      </div>
-      <div class="form-group">
-        <label for="Description">Description</label>
-        <textarea class="form-control" name="desc" row=3>{{prod.description}}</textarea>
-      </div>        
-      <div class="form-group">
-        <label for="Price">Price</label>
-        <input type="number" class="form-control" name="price" placeholder="Price" value="{{prod.price}}">
-      </div>
-      <div class="form-group">
-        <label for="Discount">Discount</label>
-        <input type="number" class="form-control" name="discount" placeholder="Discount" value="{{prod.discount}}">
-      </div>
-      <div class="form-group">
+        <div class="form-group">
+            <label for="ShortDescription">Short Description</label>
+            <input type="text" class="form-control" name="short_desc" placeholder="Short Description"
+                   value="{{prod.short_description}}">
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea class="form-control" name="desc" row=3>{{prod.description}}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="Price">Price</label>
+            <input type="number" class="form-control" name="price" placeholder="Price" value="{{prod.price}}">
+        </div>
+        <div class="form-group">
+            <label for="Discount">Discount</label>
+            <input type="number" class="form-control" name="discount" placeholder="Discount" value="{{prod.discount}}">
+        </div>
+        <div class="form-group">
             <label for="Status">Status </label>
-                <select name="status" class="form-control">
-                    <option value="A">Available</option>
-                    <option value="U">Unavailable</option>
-                </select>
-      </div>
-      <div class="form-group">
-        <label for="ImageUrl">Image Url</label>
-          <input type="file" name="image_file" id="imageurl" class="imageurl">
-{#        <input type="text" class="form-control" name="imageurl" placeholder="Image Url" value="{{prod.imageurl}}">#}
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
+            <select name="status" class="form-control">
+                <option value="A">Available</option>
+                <option value="U">Unavailable</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="ImageUrl">Image Url</label>
+            <input type="file" name="image_file" id="imageurl" class="imageurl">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
     </form>
 </div>
 
