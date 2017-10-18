@@ -1,5 +1,5 @@
 from django.conf.urls import url
-#from . import views
+from . import views
 
 # Frontend Part
 from ecom_app.views.frontend.index_view import (
@@ -7,9 +7,24 @@ from ecom_app.views.frontend.index_view import (
 	)
 
 from ecom_app.views.frontend.product_view import (
-	category_porduct_view, brand_porduct_view,
+	category_porduct_view, brand_porduct_view, porduct_details_view,
 	)
 
+from ecom_app.views.frontend.cart_view import (
+	cart_view,
+	)
+
+from ecom_app.views.frontend.checkout_view import (
+    checkout_view,
+	)
+
+from ecom_app.views.frontend.login_view import (
+	login_view,
+	)
+
+from ecom_app.views.frontend.contact_view import (
+	contact_view,
+	)
 
 # Backend Part
 from ecom_app.views.backend.index_view import (
@@ -46,6 +61,11 @@ urlpatterns = [
     url(r'^$', front_index_view, name='front-index'),
     url(r'^category/(?P<cat_id>[0-9]*)$', category_porduct_view, name='cat-product'),
     url(r'^brands/(?P<brand_id>[0-9]*)$', brand_porduct_view, name='brand-product'),
+    url(r'^product-details/$', porduct_details_view, name='product-details'),
+    url(r'^cart/$', cart_view, name='cart'),
+    url(r'^checkout/$', checkout_view, name='checkout'),
+    url(r'^login/$', login_view, name='login'),
+    url(r'^contact/$', contact_view, name='contact'),
 
 
 

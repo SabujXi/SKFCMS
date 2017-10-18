@@ -17,7 +17,7 @@ def category_porduct_view(request, cat_id=None):
 	return render(request, template, context)
 
 def brand_porduct_view(request, brand_id=None):
-	template='ecom_app/brands_product.html'
+	template='ecom_app/frontend/brands_product.html'
 	title='Brand Products'
 	products = models.Product.objects.filter(brands=brand_id)
 	brand = models.Brands.objects.get(pk=brand_id)
@@ -25,4 +25,10 @@ def brand_porduct_view(request, brand_id=None):
 	categories = models.Category.objects.all()
 	brands = models.Brands.objects.all()
 	context={'products':products, 'categories':categories,'brand':brand, 'brands':brands, 'title':title}
+	return render(request, template, context)
+
+def porduct_details_view(request):
+	template='ecom_app/frontend/product_details.html'
+	title='Product Details'
+	context={'title':title}
 	return render(request, template, context)
