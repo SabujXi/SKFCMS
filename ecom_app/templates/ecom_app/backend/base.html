@@ -5,58 +5,85 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock title %}</title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="{% static 'ecom_app/libs/bootstrap/css/bootstrap.min.css' %}">
-	<link href="{% static 'ecom_app/styles/css/admin-sidebar.css' %}" rel="stylesheet">
-  <link href="{% static 'ecom_app/styles/css/custom.css' %}" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'ecom_app/libs/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'ecom_app/styles/css/admin-sidebar.css' %}" rel="stylesheet">
+    <link href="{% static 'ecom_app/styles/css/custom.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#add').click(function() {
+               $('#myTable tbody').append('<tr> <input type="hidden" name="id" value="{{forloop.counter}}"> <td><input type="text" class="form-control" name="name" value="{{prod.name}}"></td> <td><input type="file" name="image_file" id="imageurl" class="imageurl"></td> <td> <select name="category" class="form-control"> {% with product_categories=prod.category.all %} <!-- Not understand about prod.category.all --> <option value="">--- Select ---</option> {% for cat in cats %} <option value="{{ cat.id }}" {% for c in product_categories %} {% if c.id == cat.id %} selected="selected" {% endif %} {% endfor %} > {{ cat.name }} </option> {% endfor %} {% endwith %} </select> </td> <td> <select name="brand" class="form-control"> <option value="">--- Select ---</option> {% with product_brands=prod.brands.all %} {% for brand in brands %} <option value="{{ brand.id }}" {% for b in product_brands %} {% if b.id == brand.id %} selected="selected" {% endif %} {% endfor %} >{{brand.name}} </option> {% endfor %} {% endwith %} </select> </td> <td> <select name="supplier" class="form-control"> <option value="">--- Select ---</option> {% for supplier in suppliers %} <option value="{{supplier.id}}">{{supplier.name}}</option> {% endfor %} </select> </td> <td><input type="number" class="form-control" name="price" value="{{prod.price}}"> </td> <td><input type="number" class="form-control" name="discount" value="{{prod.discount}}"></td> <td align="center"><input type="checkbox" name="record"></td> </tr>');
+            });
+
+            // Find and remove selected table rows
+            $("#rm").click(function(){
+                $("table tbody").find('input[name="record"]').each(function(){
+                    if($(this).is(":checked")){
+                        $(this).parents("tr").remove();
+                    }
+                });
+            });
+        });
+
+    </script>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container-fluid">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{% url 'ecom_app:back-index' %}">E-Commerce Admin Panel</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'ecom_app:back-index' %}">E-Commerce Admin Panel</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url 'ecom_app:site-settings' '' %}">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'ecom_app:site-settings' 1 %}">Settings</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+                <li><a href="#" target="_blank"><span class="glyphicon glyphicon-eye-open"></span></a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
         </div>
-      </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class="container-fluid">
-      <div class="row">
+<div class="container-fluid">
+    <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="{% url 'ecom_app:back-index' %}">Dashboard <span class="sr-only">(current)</span></a></li>
-            <li><a href="{% url 'ecom_app:cat-list' %}">Category</a></li>
-            <li><a href="{% url 'ecom_app:brands-list' %}">Brands</a></li>
-            <li><a href="#">Tags (Pending)</a></li>
-            <li><a href="{% url 'ecom_app:prod-list' %}">Product</a> </li>
-            <li><a href="{% url 'ecom_app:menu-list' %}">Menu</a> </li>
-          </ul>
-          
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="{% url 'ecom_app:back-index' %}">Dashboard <span
+                        class="sr-only">(current)</span></a></li>
+                <li><a href="{% url 'ecom_app:menu-list' %}">Menu</a></li>
+                <li><a href="{% url 'ecom_app:cat-list' %}">Category</a></li>
+                <li><a href="#">Tags (Pending)</a></li>
+                <li><a href="{% url 'ecom_app:brands-list' %}">Brands</a></li>
+                <li><a href="{% url 'ecom_app:prod-list' %}">Products</a></li>
+                <li><a href="{% url 'ecom_app:suppliers-list' %}">Suppliers</a></li>
+                <li><a href="#">Customers</a></li>
+
+            </ul>
+
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h4 class="page-header">{% block heading %}{{heading}}{% endblock heading %}</h4>
+            <h4 class="page-header">{% block heading %}{{heading}}{% endblock heading %}</h4>
 
-          	{% block content %}
+            {% block content %}
 
-			{% endblock content %}
-          
+            {% endblock content %}
+
         </div>
-      </div>
     </div>
+</div>
+
+<script src="{% static 'ecom_app/libs/bootstrap/js/jquery.min.js' %}"></script>
+<script src="{% static 'ecom_app/libs/bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

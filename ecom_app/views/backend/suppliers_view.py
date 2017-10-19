@@ -2,15 +2,18 @@ from django.shortcuts import render, redirect
 from ecom_app import models
 from django.views import View
 
+
 class SuppliersCreateOrEditView(View):
-    template = 'ecom_app/suppliers_form.html'
+    template = 'ecom_app/backend/suppliers_form.html'
+    heading = 'Supplier Form'
 
     def get(self, req, suppliers_id=None):
         if suppliers_id:
             suppliers_id = int(suppliers_id)
             suppliers = models.Suppliers.objects.get(id=suppliers_id)
             return render(req, self.template, context={
-                'supplier': suppliers
+                'supplier': suppliers,
+                'heading': self.heading
             })
         else:
             return render(req, self.template)
@@ -28,7 +31,7 @@ class SuppliersCreateOrEditView(View):
             supplier.slug = slug
             supplier.description = description
             supplier.save()
-            msg = "Record Updated [" + "Supplier id: " + str(supplier.id) +  "]"
+            msg = "Record Updated [" + "Supplier id: " + str(supplier.id) + "]"
         else:
             supplier = models.Suppliers(
                 name=name,
@@ -40,22 +43,18 @@ class SuppliersCreateOrEditView(View):
 
         return render(req, self.template, context={
             'msg': msg,
-            'supplier': supplier
+            'supplier': supplier,
+            'heading': self.heading
         })
 
-def SuppliersListView(req):
-    suppliers = models.Suppliers.objects.all()
-    return render(req, 'ecom_app/suppliers_list.html', context={
-        'suppliers': suppliers
-    })
 
-def SuppliersViewView(req, suppliers_id):
-    template = "ecom_app/suppliers_view.html"
-    suppliers_id = int(suppliers_id)
-    supplier = models.Suppliers.objects.get(id=suppliers_id)
-    return render(req, template, context={
-        'supplier': supplier
-    })
+def SuppliersListView(req):
+    template = 'ecom_app/backend/suppliers_list.html'
+    heading = 'Suppliers List'
+    suppliers = models.Suppliers.objects.all()
+    context = {'suppliers': suppliers, }
+    return render(req, template, context)
+
 
 def SuppliersDeleteView(req, suppliers_id):
     suppliers_id = int(suppliers_id)

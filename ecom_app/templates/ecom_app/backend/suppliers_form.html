@@ -1,25 +1,30 @@
-{% extends 'ecom_app/base.html' %}
+{% extends 'ecom_app/backend/base.html' %}
 {% block title %} {% if supplier.id %}Modify Supplier: {{ supplier.name }}{% else %} Add New Supplier{% endif %} {% endblock title %}
 
 {% if msg %}
-    {% block msg %}
-        {{ msg }}
-    {% endblock %}
+{% block msg %}
+{{ msg }}
+{% endblock %}
 {% endif %}
 
 {% block content %}
-    <hr>
-    <form action="{% url 'ecom_app:suppliers_form' supplier.id %}" method="post">
+<div class="col-md-8 col-md-offset-2">
+    <form action="{% url 'ecom_app:suppliers-form' supplier.id %}" method="POST">
         {% csrf_token %}
-        Suppliers Name :<br>
-        <input type="text" value="{{ supplier.name }}" name="name"><br>
-    Suppliers Slug :<br>
-        <input type="text" value="{{ supplier.slug }}" name="slug"><br>
-    Suppliers Description :<br>
-        <textarea name="description">{{ supplier.description }}</textarea> <br>
-        <input type="submit" name="submit" value="submit">
+        <div class="form-group">
+            <label>Supplier Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Supplier Name" value="{{ supplier.name }}">
+        </div>
+        <div class="form-group">
+            <label>Slug</label>
+            <input type="text" class="form-control" name="slug" placeholder="slug" value="{{ supplier.slug }}">
+        </div>
+        <div class="form-group">
+            <label>Supplier Description</label>
+            <textarea class="form-control" name="description" rows="3">{{ supplier.description }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:suppliers-form' '' %}">Add New</a>
     </form>
-    
-    <hr>
-    <a href="{% url 'ecom_app:suppliers_list' %}"> All Suppliers List</a> | <a href="{% url 'ecom_app:suppliers_form' '' %}">Add New Supplier</a>
+</div>
 {% endblock content %}

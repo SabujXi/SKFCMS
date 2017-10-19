@@ -38,13 +38,13 @@
         </div>
 
         <div class="form-group">
-            <label for="Select">Brand Name </label>
-            <select name="brand" class="form-control">
-                <option value="">--- Select Brand ---</option>
+            <label>Brand Name </label>
+            <select name="brand" class="form-control" multiple>
+                <!-- <option value="">--- Select Brand ---</option> -->
                 {% with product_brands=prod.brands.all %}
 
                     {% for brand in brands %}
-                        <option value="{{brand.id}}"
+                        <option value="{{ brand.id }}"
                         {% for b in product_brands %}
                            {% if b.id == brand.id %}
                                 selected="selected"
@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            <label for="Select">Supplier </label>
+            <label>Supplier </label>
             <select name="supplier" class="form-control">
                 <option value="">--- Select Supplier ---</option>
                 {% for supplier in suppliers %}
