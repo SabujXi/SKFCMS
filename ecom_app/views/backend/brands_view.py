@@ -2,10 +2,6 @@ from django.shortcuts import render, redirect
 from ecom_app import models
 from django.views import View
 
-
-
-
-
 class BrandsCreateOrEditView(View):
     template = 'ecom_app/backend/brands_form.html'
     heading = 'Brand Form'

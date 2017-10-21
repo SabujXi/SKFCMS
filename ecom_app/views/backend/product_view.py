@@ -11,24 +11,27 @@ class CrudProduct(View):
     template = 'ecom_app/backend/prod_form.html'
     title = 'Product Form'
     heading = 'Product Form'
-    cats = models.Category.objects.all()
-    brands = models.Brands.objects.all()
-    suppliers = models.Suppliers.objects.all()
 
     def get(self, request, prod_id=None):
-
+        cats = models.Category.objects.all()
+        brands = models.Brands.objects.all()
+        suppliers = models.Suppliers.objects.all()
         if prod_id:
             prod_id = int(prod_id)
             prod = models.Product.objects.get(pk=prod_id)
-            context = {'prod': prod, 'cats': self.cats, 'brands': self.brands, 'suppliers': self.suppliers,
+            context = {'prod': prod, 'cats': cats, 'brands': brands, 'suppliers': suppliers,
                        'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
         else:
-            context = {'cats': self.cats, 'brands': self.brands, 'suppliers': self.suppliers, 'title': self.title,
+            context = {'cats': cats, 'brands': brands, 'suppliers': suppliers, 'title': self.title,
                        'heading': self.heading}
             return render(request, self.template, context)
 
     def post(self, request, prod_id=None):
+        cats = models.Category.objects.all()
+        brands = models.Brands.objects.all()
+        suppliers = models.Suppliers.objects.all()
+
         name = request.POST.get('name', '')
         desc = request.POST.get('desc', '')
         short_desc = request.POST.get('short_desc', '')
@@ -67,7 +70,7 @@ class CrudProduct(View):
             prod.save()
             # prod.category.related_set = categories
             msg = 'Data updated...'
-            context = {'cats': self.cats, 'brands': self.brands, 'prod': prod, 'suppliers': self.suppliers, 'msg': msg,
+            context = {'cats': cats, 'brands': brands, 'prod': prod, 'suppliers': suppliers, 'msg': msg,
                        'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
         else:
@@ -90,7 +93,7 @@ class CrudProduct(View):
 
             # prod.category.add(category) This line for single category value
             msg = 'Data inserted...'
-            context = {'cats': self.cats, 'brands': self.brands, 'msg': msg, 'suppliers': self.suppliers,
+            context = {'cats': cats, 'brands': brands, 'msg': msg, 'suppliers': suppliers,
                        'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
 

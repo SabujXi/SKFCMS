@@ -32,6 +32,13 @@ class CrudSiteSetting(View):
         meta_keyword = request.POST.get('meta_keyword', '')
         short_desc = request.POST.get('short_desc', '')
         long_desc = request.POST.get('long_desc', '')
+        phone = request.POST.get('phone', '')
+        email = request.POST.get('email', '')
+        contact_details = request.POST.get('contact_details', '')
+        facebook_url = request.POST.get('facebook', '')
+        twitter_url = request.POST.get('twitter', '')
+        google_plus_url = request.POST.get('google_plus', '')
+        youtube_url = request.POST.get('youtube', '')
         copyrights = request.POST.get('copyright', '')
         # create_date = None
         # update_date = None
@@ -45,6 +52,13 @@ class CrudSiteSetting(View):
             site.meta_keyword = meta_keyword
             site.short_desc = short_desc
             site.long_desc = long_desc
+            site.phone = phone
+            site.email = email
+            site.contact_details = contact_details
+            site.facebook_url = facebook_url
+            site.twitter_url = twitter_url
+            site.google_plus_url = google_plus_url
+            site.youtube_url = youtube_url
             site.copyrights = copyrights
             # loc.active=status
             site.save()
@@ -58,6 +72,13 @@ class CrudSiteSetting(View):
                 meta_keyword=meta_keyword,
                 short_desc=short_desc,
                 long_desc=long_desc,
+                phone = phone,
+                email = email,
+                contact_details = contact_details,
+                facebook_url = facebook_url,
+                twitter_url = twitter_url,
+                google_plus_url = google_plus_url,
+                youtube_url = youtube_url,
                 copyrights=copyrights
             )
             site.save()

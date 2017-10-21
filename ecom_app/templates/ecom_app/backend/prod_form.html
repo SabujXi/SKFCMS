@@ -12,11 +12,11 @@
     <form action="{% url 'ecom_app:prod-form' prod.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
-            <label for="ProductName">Product Name</label>
+            <label>Product Name</label>
             <input type="text" class="form-control" name="name" placeholder="Product Name" value="{{prod.name}}">
         </div>
         <div class="form-group">
-            <label for="Select">Category Name</label>
+            <label>Category Name</label>
             <select name="category" multiple class="form-control">
                 {% with product_categories=prod.category.all %}
                 <!-- Not understand about prod.category.all -->
@@ -39,8 +39,8 @@
 
         <div class="form-group">
             <label>Brand Name </label>
-            <select name="brand" class="form-control" multiple>
-                <!-- <option value="">--- Select Brand ---</option> -->
+            <select name="brand" class="form-control">
+                <option value="">--- Select Brand ---</option>
                 {% with product_brands=prod.brands.all %}
 
                     {% for brand in brands %}
@@ -68,24 +68,24 @@
         </div>
 
         <div class="form-group">
-            <label for="ShortDescription">Short Description</label>
+            <label>Short Description</label>
             <input type="text" class="form-control" name="short_desc" placeholder="Short Description"
                    value="{{prod.short_description}}">
         </div>
         <div class="form-group">
-            <label for="Description">Description</label>
+            <label>Description</label>
             <textarea class="form-control" name="desc" row=3>{{prod.description}}</textarea>
         </div>
         <div class="form-group">
-            <label for="Price">Price</label>
+            <label>Price</label>
             <input type="number" class="form-control" name="price" placeholder="Price" value="{{prod.price}}">
         </div>
         <div class="form-group">
-            <label for="Discount">Discount</label>
+            <label>Discount</label>
             <input type="number" class="form-control" name="discount" placeholder="Discount" value="{{prod.discount}}">
         </div>
         <div class="form-group">
-            <label for="Status">Status </label>
+            <label>Status </label>
             <select name="status" class="form-control">
                 <option value="A">Available</option>
                 <option value="U">Unavailable</option>
