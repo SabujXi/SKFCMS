@@ -49,6 +49,10 @@ from ecom_app.views.backend.suppliers_view import (
     SuppliersCreateOrEditView, SuppliersListView, SuppliersDeleteView
 )
 
+from ecom_app.views.backend.user_view import (
+    CrudUser, UserListView,
+)
+
 from ecom_app.views.backend.menu_views import (
     CreateEditMenuView, menu_list_view, menu_delete_view
 )
@@ -98,6 +102,11 @@ urlpatterns = [
     url(r'^supplier-form/(?P<suppliers_id>[0-9]*)$', SuppliersCreateOrEditView.as_view(), name='suppliers-form'),
     url(r'^supplier-list/$', SuppliersListView, name='suppliers-list'),
     url(r'^supplier-delete/([0-9]+)$', SuppliersDeleteView, name='suppliers-delete'),
+
+    # url pattern for Users
+    url(r'^user-form/(?P<user_id>[0-9]*)$', CrudUser.as_view(), name='user-form'),
+    url(r'^user-list/$', UserListView, name='user-list'),
+    #url(r'^supplier-delete/([0-9]+)$', SuppliersDeleteView, name='suppliers-delete'),
 
     # url(r'^menu/$', menu_views, name='menu'),
     url(r'^menu-list$', menu_list_view, name='menu-list'),
