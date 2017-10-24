@@ -19,12 +19,23 @@ class CrudProduct(View):
         if prod_id:
             prod_id = int(prod_id)
             prod = models.Product.objects.get(pk=prod_id)
-            context = {'prod': prod, 'cats': cats, 'brands': brands, 'suppliers': suppliers,
-                       'title': self.title, 'heading': self.heading}
+            context = {
+                'cats': cats,
+                'prod': prod,
+                'brands': brands,
+                'suppliers': suppliers,
+                'title': self.title,
+                'heading': self.heading
+            }
             return render(request, self.template, context)
         else:
-            context = {'cats': cats, 'brands': brands, 'suppliers': suppliers, 'title': self.title,
-                       'heading': self.heading}
+            context = {
+                'cats': cats,
+                'brands': brands,
+                'suppliers': suppliers,
+                'title': self.title,
+                'heading': self.heading
+            }
             return render(request, self.template, context)
 
     def post(self, request, prod_id=None):

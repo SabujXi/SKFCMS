@@ -35,9 +35,15 @@
             <td>{{ prod.name }}</td>
             <td>{{ prod.description }}</td>
             <td>
-                {% for cat in product_categories %}
-                    {{1}},
-                {% endfor %}
+                {% with product_categories=prod.category.all %}
+                    {% for cat in product_categories %}
+                        {% for c in product_categories %}
+                            {% if c.id == cat.id %}
+                                {{ c.name }}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endwith %}
             </td>
             <td align="center">{{ prod.price }}</td>
             <td align="center">{{ prod.discount }}</td>

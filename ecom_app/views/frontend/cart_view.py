@@ -5,7 +5,7 @@ from django.views import View
 
 
 def cart_view(request):
-	template='ecom_app/frontend/cart.html'
-	title='Cart Page'
-	context={'title':title}
-	return render(request, template, context)
+    template = 'ecom_app/frontend/cart.html'
+    title = 'Cart Page'
+    context = {'title': title}
+    return render(request, template, context)
