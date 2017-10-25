@@ -65,7 +65,7 @@ urlpatterns = [
     url(r'^$', front_index_view, name='front-index'),
     url(r'^category/(?P<cat_id>[0-9]*)$', category_porduct_view, name='cat-product'),
     url(r'^brands/(?P<brand_id>[0-9]*)$', brand_porduct_view, name='brand-product'),
-    url(r'^product-details/$', porduct_details_view, name='product-details'),
+    url(r'^product-details/(?P<prod_id>[0-9]*)$', porduct_details_view, name='product-details'),
     url(r'^cart/$', cart_view, name='cart'),
     url(r'^checkout/$', checkout_view, name='checkout'),
     url(r'^login/(?P<user_id>[0-9]*)$', UserReg.as_view(), name='login'),
@@ -74,8 +74,7 @@ urlpatterns = [
     url(r'^admin/$', back_index_view, name='back-index'),
     url(r'^settings/(?P<site_id>[0-9]*)$', CrudSiteSetting.as_view(), name='site-settings'),
 
-    # url pattern for Social Link
-    #url(r'^social/$', front_social_view, name='social'),
+
 
     # url pattern for category
     url(r'^cat-form/(?P<cat_id>[0-9]*)$', CrudCategory.as_view(), name='cat-form'),

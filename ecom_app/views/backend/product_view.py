@@ -51,6 +51,7 @@ class CrudProduct(View):
         image_file = request.FILES.get('image_file', None)
         category_ids = request.POST.getlist('category')
         brand = request.POST.get('brand', '')
+        stock_status = request.POST.get('status', '')
 
         if image_file is not None:
             image_file_path = image_file.name
@@ -74,10 +75,9 @@ class CrudProduct(View):
             prod.category = categories
             prod.price = price
             prod.discount = discount
-
             prod.image_file_path = image_file_path
-
             prod.brands_id = brand
+            prod.stock_status = stock_status
             prod.save()
             # prod.category.related_set = categories
             msg = 'Data updated...'
@@ -92,7 +92,8 @@ class CrudProduct(View):
                 price=price,
                 discount=discount,
                 image_file_path=image_file_path,
-                brands_id=brand
+                brands_id=brand,
+                stock_status=stock_status
             )
             prod.save()
             prod.category.add(*categories)

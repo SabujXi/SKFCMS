@@ -84,16 +84,17 @@
             <label>Discount</label>
             <input type="number" class="form-control" name="discount" placeholder="Discount" value="{{prod.discount}}">
         </div>
-        <div class="form-group">
-            <label>Status </label>
-            <select name="status" class="form-control">
-                <option value="A">Available</option>
-                <option value="U">Unavailable</option>
-            </select>
-        </div>
+
         <div class="form-group">
             <label for="ImageUrl">Image Url</label>
             <input type="file" name="image_file" id="imageurl" class="imageurl">
+        </div>
+        <div class="form-group">
+            <label><input type="checkbox" name="status" value="{{prod.stock_status}}"
+            {% if prod.stock_status %}
+                checked
+            {% endif %}
+            > Is Available?</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
         <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:prod-form' '' %}">Add New</a>

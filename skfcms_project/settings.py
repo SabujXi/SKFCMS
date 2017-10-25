@@ -72,6 +72,8 @@ TEMPLATES = [
 
                 #Custom Context Processor
                 'ecom_app.context_processors.site_settings',
+                'ecom_app.context_processors.get_all_categories',
+                'ecom_app.context_processors.get_all_brands',
             ],
         },
     },

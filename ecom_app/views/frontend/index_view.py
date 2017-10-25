@@ -10,7 +10,5 @@ def front_index_view(request):
     template = 'ecom_app/frontend/index.html'
     title = 'Home Page'
     products = models.Product.objects.all()
-    categories = models.Category.objects.all()
-    brands = models.Brands.objects.all()
-    context = {'products': products, 'categories': categories, 'brands': brands, 'title': title}
+    context = {'products': products, 'title': title}
     return render(request, template, context)

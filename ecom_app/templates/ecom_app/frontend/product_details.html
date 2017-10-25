@@ -2,32 +2,6 @@
 
 {% block title %}{{title}}{% endblock title %}
 
-{% block categories %}
-<h2>Category</h2>
-<div class="panel-group category-products" id="accordian"><!--category-productsr-->
-    {% for category in categories %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title"><a href="{% url 'ecom_app:cat-product' category.id %}">{{ category.name }}</a></h4>
-        </div>
-    </div>
-    {% endfor %}
-</div><!--/category-products-->
-{% endblock categories %}
-
-{% block brands %}
-<div class="brands_products"><!--brands_products-->
-    <h2>Brands</h2>
-    <div class="brands-name">
-        <ul class="nav nav-pills nav-stacked">
-            {% for brand in brands %}
-            <li><a href="{% url 'ecom_app:brand-product' brand.id %}"> <span
-                    class="pull-right">(50)</span>{{brand.name}}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
-</div><!--/brands_products-->
-{% endblock brands %}
 
 {% block right_content %}
 
@@ -35,7 +9,7 @@
     <div class="product-details"><!--product-details-->
         <div class="col-sm-5">
             <div class="view-product">
-                <img src="images/product-details/1.jpg" alt="">
+                <img src="{% url 'ecom_app:upload_file_provider' prod.get_image_file_path %}" alt="">
                 <h3>ZOOM</h3>
             </div>
             <div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -73,18 +47,18 @@
         <div class="col-sm-7">
             <div class="product-information"><!--/product-information-->
                 <img src="images/product-details/new.jpg" class="newarrival" alt="">
-                <h2>Anne Klein Sleeveless Colorblock Scuba</h2>
+                <h2>{{ prod.name }}</h2>
                 <p>Web ID: 1089772</p>
                 <img src="images/product-details/rating.png" alt="">
                 <span>
-									<span>US $59</span>
-									<label>Quantity:</label>
-									<input type="text" value="3">
-									<button type="button" class="btn btn-fefault cart">
-										<i class="fa fa-shopping-cart"></i>
-										Add to cart
-									</button>
-								</span>
+                    <span>US ${{ prod.price }}</span>
+                    <label>Quantity:</label>
+                    <input type="text" value="3">
+                    <button type="button" class="btn btn-fefault cart">
+                        <i class="fa fa-shopping-cart"></i>
+                        Add to cart
+                    </button>
+                </span>
                 <p><b>Availability:</b> In Stock</p>
                 <p><b>Condition:</b> New</p>
                 <p><b>Brand:</b> E-SHOPPER</p>
@@ -101,10 +75,7 @@
             </ul>
         </div>
         <div class="tab-content">
-            <div class="tab-pane fade" id="details">
-
-            </div>
-
+            <div class="tab-pane fade" id="details"></div>
 
             <div class="tab-pane fade active in" id="reviews">
                 <div class="col-sm-12">
@@ -120,10 +91,10 @@
                     <p><b>Write Your Review</b></p>
 
                     <form action="#">
-										<span>
-											<input type="text" placeholder="Your Name">
-											<input type="email" placeholder="Email Address">
-										</span>
+                        <span>
+                            <input type="text" placeholder="Your Name">
+                            <input type="email" placeholder="Email Address">
+                        </span>
                         <textarea name=""></textarea>
                         <b>Rating: </b> <img src="images/product-details/rating.png" alt="">
                         <button type="button" class="btn btn-default pull-right">
