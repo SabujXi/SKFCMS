@@ -42,12 +42,9 @@ from ecom_app.views.backend.product_view import (
 )
 
 from ecom_app.views.backend.brands_view import (
-    BrandsCreateOrEditView, BrandsListView, BrandsViewView, BrandsDeleteView
+    BrandsCreateOrEditView, BrandsListView, BrandsDeleteView, #BrandsViewView,
 )
 
-from ecom_app.views.backend.suppliers_view import (
-    SuppliersCreateOrEditView, SuppliersListView, SuppliersDeleteView
-)
 
 from ecom_app.views.backend.user_view import (
     CrudUser, UserListView,
@@ -91,15 +88,11 @@ urlpatterns = [
     url(r'^prod-del/([0-9]+)$', product_delete, name='prod-del'),
 
     # url pattern for brands
-    url(r'^brand-form/(?P<brands_id>[0-9]*)$', BrandsCreateOrEditView.as_view(), name='brands-form'),
-    url(r'^brand-list/$', BrandsListView, name='brands-list'),
-    url(r'^brand-view/([0-9]+)$', BrandsViewView, name='brands_view'),
-    url(r'^brand-delete/([0-9]+)$', BrandsDeleteView, name='brands_delete'),
+    url(r'^brand-form/(?P<brand_id>[0-9]*)$', BrandsCreateOrEditView.as_view(), name='brand-form'),
+    url(r'^brand-list/$', BrandsListView, name='brand-list'),
+    #url(r'^brand-view/([0-9]+)$', BrandsViewView, name='brand-view'),
+    url(r'^brand-delete/([0-9]+)$', BrandsDeleteView, name='brand-delete'),
 
-    # url pattern for suppliers
-    url(r'^supplier-form/(?P<suppliers_id>[0-9]*)$', SuppliersCreateOrEditView.as_view(), name='suppliers-form'),
-    url(r'^supplier-list/$', SuppliersListView, name='suppliers-list'),
-    url(r'^supplier-delete/([0-9]+)$', SuppliersDeleteView, name='suppliers-delete'),
 
     # url pattern for Users
     url(r'^user-form/(?P<user_id>[0-9]*)$', CrudUser.as_view(), name='user-form'),

@@ -12,7 +12,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#add').click(function() {
-               $('#myTable tbody').append('<tr> <input type="hidden" name="id" value="{{forloop.counter}}"> <td><input type="text" class="form-control" name="name" value="{{prod.name}}"></td> <td><input type="file" name="image_file" id="imageurl" class="imageurl"></td> <td> <select name="category" class="form-control"> {% with product_categories=prod.category.all %} <!-- Not understand about prod.category.all --> <option value="">--- Select ---</option> {% for cat in cats %} <option value="{{ cat.id }}" {% for c in product_categories %} {% if c.id == cat.id %} selected="selected" {% endif %} {% endfor %} > {{ cat.name }} </option> {% endfor %} {% endwith %} </select> </td> <td> <select name="brand" class="form-control"> <option value="">--- Select ---</option> {% with product_brands=prod.brands.all %} {% for brand in brands %} <option value="{{ brand.id }}" {% for b in product_brands %} {% if b.id == brand.id %} selected="selected" {% endif %} {% endfor %} >{{brand.name}} </option> {% endfor %} {% endwith %} </select> </td> <td> <select name="supplier" class="form-control"> <option value="">--- Select ---</option> {% for supplier in suppliers %} <option value="{{supplier.id}}">{{supplier.name}}</option> {% endfor %} </select> </td> <td><input type="number" class="form-control" name="price" value="{{prod.price}}"> </td> <td><input type="number" class="form-control" name="discount" value="{{prod.discount}}"></td> <td align="center"><input type="checkbox" name="record"></td> </tr>');
+               $('#myTable tbody').append('<tr> <input type="hidden" name="id" value="{{forloop.counter}}"> <td><input type="text" class="form-control" name="name" value="{{prod.name}}"></td> <td><input type="file" name="image_file" id="imageurl" class="imageurl"></td> <td> <select name="category" class="form-control"> {% with product_categories=prod.category.all %} <!-- Not understand about prod.category.all --> <option value="">--- Select ---</option> {% for cat in cats %} <option value="{{ cat.id }}" {% for c in product_categories %} {% if c.id == cat.id %} selected="selected" {% endif %} {% endfor %} > {{ cat.name }} </option> {% endfor %} {% endwith %} </select> </td> <td> <select name="brand" class="form-control"> <option value="">--- Select ---</option> {% for brand in brands %} <option value="{{ brand.id }}"  {% if prod.brands_id == brand.id %} selected="selected" {% endif %}  >{{brand.name}} </option>{% endfor %} </select> </td> <td><input type="number" class="form-control" name="price" value="{{prod.price}}"> </td> <td><input type="number" class="form-control" name="discount" value="{{prod.discount}}"></td> <td align="center"><input type="checkbox" name="record"></td> </tr>');
             });
 
             // Find and remove selected table rows
@@ -58,14 +58,12 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="{% url 'ecom_app:back-index' %}">Dashboard <span
-                        class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="{% url 'ecom_app:back-index' %}">Dashboard <span class="sr-only">(current)</span></a></li>
                 <li><a href="{% url 'ecom_app:menu-list' %}">Menu</a></li>
                 <li><a href="{% url 'ecom_app:cat-list' %}">Category</a></li>
                 <li><a href="#">Tags (Pending)</a></li>
-                <li><a href="{% url 'ecom_app:brands-list' %}">Brands</a></li>
+                <li><a href="{% url 'ecom_app:brand-list' %}">Brands</a></li>
                 <li><a href="{% url 'ecom_app:prod-list' %}">Products</a></li>
-                <li><a href="{% url 'ecom_app:suppliers-list' %}">Suppliers</a></li>
                 <li><a href="{% url 'ecom_app:user-list' %}">Customers</a></li>
                 <li><a href="#">Order List</a></li>
 

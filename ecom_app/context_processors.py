@@ -5,7 +5,7 @@ from ecom_app import models
 def site_settings(request):
     try:
         sets = models.SiteSetting.objects.get(pk=1)
-    except sets.DoesNotExist:
+    except models.SiteSetting.DoesNotExist:
         sets = None
 
     return {'sets': sets}

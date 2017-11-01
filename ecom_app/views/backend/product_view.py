@@ -15,7 +15,6 @@ class CrudProduct(View):
     def get(self, request, prod_id=None):
         cats = models.Category.objects.all()
         brands = models.Brands.objects.all()
-        suppliers = models.Suppliers.objects.all()
         if prod_id:
             prod_id = int(prod_id)
             prod = models.Product.objects.get(pk=prod_id)
@@ -23,7 +22,6 @@ class CrudProduct(View):
                 'cats': cats,
                 'prod': prod,
                 'brands': brands,
-                'suppliers': suppliers,
                 'title': self.title,
                 'heading': self.heading
             }
@@ -32,7 +30,6 @@ class CrudProduct(View):
             context = {
                 'cats': cats,
                 'brands': brands,
-                'suppliers': suppliers,
                 'title': self.title,
                 'heading': self.heading
             }
@@ -82,7 +79,7 @@ class CrudProduct(View):
             prod.save()
             # prod.category.related_set = categories
             msg = 'Data updated...'
-            context = {'cats': cats, 'brands': brands, 'prod': prod, 'suppliers': suppliers, 'msg': msg,
+            context = {'cats': cats, 'brands': brands, 'prod': prod, 'msg': msg,
                        'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
         else:
@@ -119,22 +116,18 @@ class CrudProductTabular(View):
     def get(self, request, prod_id=None):
         cats = models.Category.objects.all()
         brands = models.Brands.objects.all()
-        suppliers = models.Suppliers.objects.all()
         if prod_id:
             prod_id = int(prod_id)
             prod = models.Product.objects.get(pk=prod_id)
-            context = {'prod': prod, 'cats': cats, 'brands': brands, 'suppliers': suppliers,
-                       'title': self.title, 'heading': self.heading}
+            context = {'prod': prod, 'cats': cats, 'brands': brands, 'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
         else:
-            context = {'cats': cats, 'brands': brands, 'suppliers': suppliers, 'title': self.title,
-                       'heading': self.heading}
+            context = {'cats': cats, 'brands': brands, 'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
 
     def post(self, request, prod_id=None):
         cats = models.Category.objects.all()
         brands = models.Brands.objects.all()
-        suppliers = models.Suppliers.objects.all()
 
         name = request.POST.get('name', '')
         desc = request.POST.get('desc', '')
@@ -174,7 +167,7 @@ class CrudProductTabular(View):
             prod.save()
             # prod.category.related_set = categories
             msg = 'Data updated...'
-            context = {'cats': cats, 'brands': brands, 'prod': prod, 'suppliers': suppliers, 'msg': msg,
+            context = {'cats': cats, 'brands': brands, 'prod': prod, 'msg': msg,
                        'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
         else:
@@ -197,8 +190,7 @@ class CrudProductTabular(View):
 
             # prod.category.add(category) This line for single category value
             msg = 'Data inserted...'
-            context = {'cats': cats, 'brands': brands, 'msg': msg, 'suppliers': suppliers,
-                       'title': self.title, 'heading': self.heading}
+            context = {'cats': cats, 'brands': brands, 'msg': msg, 'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
 
 

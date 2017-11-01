@@ -32,7 +32,6 @@
                 <th width="100">Product Image</th>
                 <th width="200">Category</th>
                 <th width="150">Brand</th>
-                <th width="150">Supplier</th>
                 <th width="100">Price</th>
                 <th width="100">Discount</th>
                 <th align="center">Select</th>
@@ -67,27 +66,13 @@
                 <td>
                     <select name="brand" class="form-control">
                         <option value="">--- Select ---</option>
-                        {% with product_brands=prod.brands.all %}
-
                         {% for brand in brands %}
-                        <option value="{{ brand.id }}"
-                                {% for b in product_brands %}
-                                {% if b.id == brand.id %}
-                                selected="selected"
-                                {% endif %}
-                                {% endfor %}
-                        >{{brand.name}}
-                        </option>
-                        {% endfor %}
-
-                        {% endwith %}
-                    </select>
-                </td>
-                <td>
-                    <select name="supplier" class="form-control">
-                        <option value="">--- Select ---</option>
-                        {% for supplier in suppliers %}
-                        <option value="{{supplier.id}}">{{supplier.name}}</option>
+                            <option value="{{ brand.id }}"
+                               {% if prod.brand_id == brand.id %}
+                                    selected="selected"
+                               {% endif %}
+                            >{{brand.name}}
+                            </option>
                         {% endfor %}
                     </select>
                 </td>

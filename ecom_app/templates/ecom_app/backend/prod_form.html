@@ -41,31 +41,18 @@
             <label>Brand Name </label>
             <select name="brand" class="form-control">
                 <option value="">--- Select Brand ---</option>
-                {% with product_brands=prod.brands.all %}
 
                     {% for brand in brands %}
                         <option value="{{ brand.id }}"
-                        {% for b in product_brands %}
-                           {% if b.id == brand.id %}
+                           {% if prod.brand_id == brand.id %}
                                 selected="selected"
                            {% endif %}
-                        {% endfor %}
                         >{{brand.name}}</option>
                     {% endfor %}
 
-                {% endwith %}
             </select>
         </div>
 
-        <div class="form-group">
-            <label>Supplier </label>
-            <select name="supplier" class="form-control">
-                <option value="">--- Select Supplier ---</option>
-                {% for supplier in suppliers %}
-                <option value="{{supplier.id}}">{{supplier.name}}</option>
-                {% endfor %}
-            </select>
-        </div>
 
         <div class="form-group">
             <label>Short Description</label>
@@ -90,11 +77,7 @@
             <input type="file" name="image_file" id="imageurl" class="imageurl">
         </div>
         <div class="form-group">
-            <label><input type="checkbox" name="status" value="{{prod.stock_status}}"
-            {% if prod.stock_status %}
-                checked
-            {% endif %}
-            > Is Available?</label>
+            <label><input type="checkbox" name="status" {% if prod.stock_status %} checked {% endif %} > Is Available?</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
         <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
