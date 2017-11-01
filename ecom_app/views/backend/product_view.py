@@ -39,6 +39,7 @@ class CrudProduct(View):
             return render(request, self.template, context)
 
     def post(self, request, prod_id=None):
+        prod_id=int(prod_id)
         cats = models.Category.objects.all()
         brands = models.Brands.objects.all()
         suppliers = models.Suppliers.objects.all()
@@ -50,7 +51,7 @@ class CrudProduct(View):
         discount = request.POST.get('discount', '')
         image_file = request.FILES.get('image_file', None)
         category_ids = request.POST.getlist('category')
-        brand = request.POST.get('brand', '')
+        brand_id = request.POST.get('brand', '')
         stock_status = request.POST.get('status', '')
 
         if image_file is not None:
@@ -76,7 +77,7 @@ class CrudProduct(View):
             prod.price = price
             prod.discount = discount
             prod.image_file_path = image_file_path
-            prod.brands_id = brand
+            prod.brands_id = brand_id
             prod.stock_status = stock_status
             prod.save()
             # prod.category.related_set = categories
@@ -92,7 +93,7 @@ class CrudProduct(View):
                 price=price,
                 discount=discount,
                 image_file_path=image_file_path,
-                brands_id=brand,
+                brands_id=brand_id,
                 stock_status=stock_status
             )
             prod.save()
