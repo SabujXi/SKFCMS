@@ -3,20 +3,20 @@
 {% block title %}{{title}}{% endblock title %}
 
 {% block content %}
+{% for message in messages %}
+    {{message}}
+{% endfor %}
 <section id="form"><!--form-->
     <div class="container">
         <div class="row">
             <div class="col-sm-4 col-sm-offset-1">
                 <div class="login-form"><!--login form-->
                     <h2>Login to your account</h2>
-                    <form method="POST" action="#">
+                    <form method="POST" action="{% url 'ecom_app:login-real' %}">
                         {% csrf_token %}
-                        <input type="text" name="user_name" placeholder="Name">
+                        <input type="email" name="email" placeholder="Email">
                         <input type="password" name="password" placeholder="Password">
-                        <span>
-                            <input type="checkbox" class="checkbox">
-								Keep me signed in
-                        </span>
+                        <!--<span> <input type="checkbox" class="checkbox"> Keep me signed in </span>-->
                         <button type="submit" class="btn btn-default">Login</button>
                     </form>
                 </div><!--/login form-->
@@ -27,7 +27,7 @@
             <div class="col-sm-4">
                 <div class="signup-form"><!--sign up form-->
                     <h2>New User Signup!</h2>
-                    <form method="POST" action="#">
+                    <form method="POST" action="{% url 'ecom_app:login' %}">
                         {% csrf_token %}
                         <input type="text" name="user_name" placeholder="Name">
                         <input type="email" name="email" placeholder="Email Address">
