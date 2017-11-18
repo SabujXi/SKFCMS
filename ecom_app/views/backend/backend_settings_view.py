@@ -9,12 +9,11 @@ from django.utils.decorators import method_decorator
 
 
 # Create your views here.
-
+@method_decorator(login_required, name="get")
 class CrudSiteSetting(View):
     template = "ecom_app/backend/site_settings.html"
     # How to apply this decorator on class
 
-    @method_decorator(login_required)
     def get(self, request, site_id=None):
         if site_id:
             site = SiteSetting.objects.get(pk=site_id)
@@ -23,7 +22,6 @@ class CrudSiteSetting(View):
         else:
             return render(request, self.template, {'title': 'Site Settings','heading': 'Site Settings'})
 
-    @method_decorator(login_required)
     def post(self, request, site_id=None):
         title = request.POST.get('site_title', '')
         logo_file = request.FILES.get('image_file', None)

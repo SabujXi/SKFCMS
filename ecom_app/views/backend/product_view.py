@@ -4,9 +4,12 @@ from django.views import View
 from django.conf import settings
 import os
 from django.http import FileResponse
+from decorators_module.my_custom_auth_decorators import my_custom_position_decorator
+from django.utils.decorators import method_decorator
 
 
 # Create your views here.
+@method_decorator(my_custom_position_decorator, name="get")
 class CrudProduct(View):
     template = 'ecom_app/backend/prod_form.html'
     title = 'Product Form'
