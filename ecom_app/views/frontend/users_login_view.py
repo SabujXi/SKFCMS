@@ -1,7 +1,3 @@
-
-
-
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from ecom_app import models
@@ -11,7 +7,7 @@ from django.shortcuts import render, redirect
 from ecom_app import models
 from django.views import View
 from django.contrib.auth.models import User as DjUser
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 class UserReg(View):
@@ -53,8 +49,11 @@ class UserLogin(UserReg):
         djuser = authenticate(req, username=email, password=password)
         if djuser:
             login(req, djuser)
-            messages.info(req, "Logged in success")
+            return redirect('ecom_app:front-index')
         else:
             messages.info(req, "Invalid Credentials")
+            return redirect('ecom_app:login')
 
-        return redirect('ecom_app:login')
+def logout_view(request):
+    logout(request)
+    return redirect('ecom_app:login')

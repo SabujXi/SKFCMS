@@ -14,9 +14,9 @@ class CrudCategory(View):
 
         if cat_id:
             cat_id = int(cat_id)
-            cats = models.Category.objects.get(id=cat_id)
+            cat = models.Category.objects.get(id=cat_id)
             context = {
-                'cat': cats,
+                'cat': cat,
                 'title': self.title
             }
             return render(request, self.template, context)

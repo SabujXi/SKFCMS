@@ -42,8 +42,12 @@
                             <li><a href="{% url 'ecom_app:checkout' %}"><i class="fa fa-crosshairs"></i> Checkout</a>
                             </li>
                             <li><a href="{% url 'ecom_app:cart' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
-                            <li><a href="{% url 'ecom_app:login' %}"><i class="fa fa-lock"></i> Login</a></li>
+                            {% if user.is_authenticated %}
+                                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                                <li><a href="{% url 'ecom_app:logout' %}"><i class="fa fa-unlock"></i> Log Out</a></li>
+                            {% else %}
+                                <li><a href="{% url 'ecom_app:login' %}"><i class="fa fa-lock"></i> Login</a></li>
+                            {% endif %}
 
                             <div class="search_box pull-right">
                                 <input type="text" placeholder="Search"/>

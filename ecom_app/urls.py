@@ -19,7 +19,7 @@ from ecom_app.views.frontend.checkout_view import (
 )
 
 from ecom_app.views.frontend.users_login_view import (
-    UserReg, UserLogin
+    UserReg, UserLogin, logout_view
 )
 
 from ecom_app.views.frontend.contact_view import (
@@ -65,8 +65,9 @@ urlpatterns = [
     url(r'^product-details/(?P<prod_id>[0-9]*)$', porduct_details_view, name='product-details'),
     url(r'^cart/$', cart_view, name='cart'),
     url(r'^checkout/$', checkout_view, name='checkout'),
-    url(r'^login/$', UserReg.as_view(), name='login'),
-    url(r'^login-real/$', UserLogin.as_view(), name='login-real'),
+    url(r'^reg/$', UserReg.as_view(), name='reg'),
+    url(r'^login/$', UserLogin.as_view(), name='login'),
+    url(r'^logout/$', logout_view, name='logout'),
     url(r'^contact/$', contact_view, name='contact'),
 
     url(r'^admin/$', back_index_view, name='back-index'),
