@@ -4,7 +4,7 @@
 {% block heading %}{{heading}}{% endblock heading %}
 
 
-{% block content %}
+{% block right_content %}
 <div style="width:100%; overflow: hidden;">
     <a class="btn btn-success btn-xs pull-right" role="button" href="{% url 'ecom_app:cat-form' '' %}">Add New</a>
 </div>
@@ -38,4 +38,4 @@
 {% else %}
 	<p>Category not found!</p>
 {% endif %}
-{% endblock content %}
+{% endblock right_content %}

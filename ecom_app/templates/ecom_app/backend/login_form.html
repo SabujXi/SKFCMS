@@ -1,0 +1,33 @@
+
+
+
+
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %} Ecom : User Login {% endblock title %}
+
+{% block heading %}{% endblock heading %}
+{% block top_nav_bar %}{% endblock top_nav_bar %}
+{% block side_menu %}{% endblock side_menu %}
+
+
+{% block content %}
+<div class="col-md-4 col-md-offset-4">
+    <h4 class="page-header">User Login...</h4>
+    {% for message in messages %}
+        <p>{{message}}</p>
+    {% endfor %}
+
+    <form method="post" action="{% url 'ecom_app:user-login' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>User Name</label>
+            <input type="text" name="username" class="form-control" placeholder="User Name">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+{% endblock content %}

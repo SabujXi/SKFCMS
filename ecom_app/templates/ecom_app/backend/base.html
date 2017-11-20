@@ -28,6 +28,7 @@
     </script>
 </head>
 <body>
+{% block top_nav_bar %}
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -53,9 +54,13 @@
         </div>
     </div>
 </nav>
+{% endblock top_nav_bar %}
 
 <div class="container-fluid">
     <div class="row">
+        {% block content %}
+
+        {% block side_menu %}
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="{% url 'ecom_app:back-index' %}">Dashboard <span class="sr-only">(current)</span></a></li>
@@ -68,16 +73,18 @@
                 <li><a href="#">Order List</a></li>
 
             </ul>
-
         </div>
+        {% endblock side_menu %}
+
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h4 class="page-header">{% block heading %}{{heading}}{% endblock heading %}</h4>
 
-            {% block content %}
+            {% block right_content %}
 
-            {% endblock content %}
+            {% endblock right_content %}
 
         </div>
+        {% endblock content %}
     </div>
 </div>
 

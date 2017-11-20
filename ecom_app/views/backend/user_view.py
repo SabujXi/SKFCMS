@@ -2,9 +2,38 @@ from django.shortcuts import render, redirect
 from ecom_app import models
 from django.views import View
 from django.contrib.auth.models import User as Djuser
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from ecom_app.models.choices.choices import position_choices
 from django.utils.decorators import method_decorator
 from decorators_module.my_custom_auth_decorators import my_custom_position_decorator
+
+
+class BackendUserLogin(View):
+
+    template = 'ecom_app/backend/login_form.html'
+
+    def get(self, req):
+        return render(req, self.template, {})
+
+    def post(self, req):
+        username = req.POST['username']
+        password = req.POST['password']
+        # print(username)
+        djuser = authenticate(req, username=username, password=password)
+        print('Auth: ', djuser)
+        if djuser:
+            login(req, djuser)
+            return redirect('ecom_app:back-index')
+        else:
+            messages.info(req, "Invalid Credentials")
+            return redirect('ecom_app:user-login')
+
+
+@my_custom_position_decorator
+def backend_logout_view(request):
+    logout(request)
+    return redirect('ecom_app:user-login')
 
 
 @my_custom_position_decorator

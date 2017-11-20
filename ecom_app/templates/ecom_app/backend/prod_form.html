@@ -7,7 +7,7 @@
 <p>{{msg}}</p>
 {% endblock msg %}
 
-{% block content %}
+{% block right_content %}
 <div class="col-md-8 col-md-offset-2">
     <form action="{% url 'ecom_app:prod-form' prod.id %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -84,4 +84,4 @@
     </form>
 </div>
 
-{% endblock content %}
+{% endblock right_content %}

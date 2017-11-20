@@ -6,7 +6,7 @@
     <p>{{msg}}</p>
 {% endblock msg %}
 
-{% block content %}
+{% block right_content %}
     <div class="container">
         <form action="{% url 'ecom_app:create_edit_menu' menu_id %}" method="POST">
             {% csrf_token %}
@@ -15,4 +15,4 @@
         </form>
     </div>
 
-{% endblock content %}
+{% endblock right_content %}

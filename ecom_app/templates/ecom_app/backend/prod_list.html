@@ -5,7 +5,7 @@
 {% block heading %}{{heading}}{% endblock heading %}
 
 
-{% block content %}
+{% block right_content %}
 <div style="width:100%; margin:20px 0px; text-align:right; overflow: hidden;">
     <a class="btn btn-primary btn-xs" role="button" href="{% url 'ecom_app:prod-form-tabular' '' %}">Add New (Tabular)</a>
     <a class="btn btn-success btn-xs" role="button" href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
@@ -60,4 +60,4 @@
 {% else %}
     <p>Product not found!</p>
 {% endif %}
-{% endblock content %}
+{% endblock right_content %}

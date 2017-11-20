@@ -47,7 +47,7 @@ from ecom_app.views.backend.brands_view import (
 
 
 from ecom_app.views.backend.user_view import (
-    CrudUser, user_list_view,
+    BackendUserLogin, CrudUser, user_list_view, backend_logout_view
 )
 
 from ecom_app.views.backend.menu_views import (
@@ -95,6 +95,8 @@ urlpatterns = [
 
 
     # url pattern for Users
+    url(r'^user-login/$', BackendUserLogin.as_view(), name='user-login'),
+    url(r'^user-logout/$', backend_logout_view, name='user-logout'),
     url(r'^user-form/(?P<user_id>[0-9]*)$', CrudUser.as_view(), name='user-form'),
     url(r'^user-list/$', user_list_view, name='user-list'),
     #url(r'^supplier-delete/([0-9]+)$', SuppliersDeleteView, name='suppliers-delete'),
