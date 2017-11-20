@@ -23,11 +23,10 @@ def my_custom_position_decorator(view_fun):
             return redirect("/login")
         else:
             my_user = Users.objects.get(dj_user=req.user)
-            if my_user.position == "ceo":
-                messages.info(req, "Welcome CEO ")
-                print("Welcome CEO ")
+            if my_user.position == "admin":
+                pass
             else:  # req.user.users.position == "teacher":
-                messages.warning(req, "You are not ceo! You can't access this page. ")
+                messages.warning(req, "You are not Admin! You can't access this page. ")
                 logout(req)
                 return redirect('ecom_app:login')
         return view_fun(req, *args, **kwargs)

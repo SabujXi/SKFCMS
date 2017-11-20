@@ -1,59 +1,57 @@
 from django.shortcuts import render, redirect
 from ecom_app import models
 from django.views import View
+from django.contrib.auth.models import User as Djuser
+from ecom_app.models.choices.choices import position_choices
+from django.utils.decorators import method_decorator
+from decorators_module.my_custom_auth_decorators import my_custom_position_decorator
 
+
+@my_custom_position_decorator
+def user_list_view(req):
+    template = 'ecom_app/backend/user_list.html'
+    users = models.Users.objects.all()
+    context = { 'users': users, 'heading': 'User List' }
+    return render(req, template, context)
+
+
+@method_decorator(my_custom_position_decorator, name="dispatch")
 class CrudUser(View):
     template = 'ecom_app/backend/user_form.html'
     heading = 'User Form'
 
     def get(self, req, user_id=None):
         if user_id:
-            user_id = int(user_id)
-            users = models.Users.objects.get(id=user_id)
-            return render(req, self.template, context={
-                'user': users, 'heading':self.heading
-            })
+            user_id=int(user_id)
+            user = models.Users.objects.get(dj_user_id=user_id)
+            context = {'position':position_choices, 'user':user, 'heading': 'Update User'}
         else:
-            return render(req, self.template, context={
-                'heading':self.heading
-            })
+            context = {'heading': 'Create User', 'position':position_choices,}
+
+        return render(req, self.template, context)
 
     def post(self, req, user_id=None):
-
         name = req.POST['name']
-        email = req.POST['email']
-        password = req.POST['password']
+        mobile = req.POST['mobile']
+        # email = req.POST['email']
+        # username = req.POST['username']
+        # password = req.POST['password']
+        user_position = req.POST['position']
 
         if user_id:
-            user_id = int(user_id)
-            user = models.Users.objects.get(id=user_id)
-            user.user_name = name
-            user.email = email
-            user.password = password
+            user_id=int(user_id)
+            duser = Djuser.objects.get(pk=user_id)
+            duser.first_name=name
+            # duser.set_password = password
+            duser.save()
+
+            user = models.Users.objects.get(dj_user_id=user_id)
+            user.mobile=mobile
+            user.position=user_position
             user.save()
-            msg = "Record Updated [" + "User id: " + str(user.id) +  "]"
-        else:
-            user = models.Users(
-                user_name = name,
-                email = email,
-                password = password
-            )
-            user.save()
-            msg = "Successfully saved [" + "User id: " + str(user.id) + "]"
 
-        return render(req, self.template, context={
-            'msg': msg,
-            'user': user,
-            'heading':self.heading
-        })
+        return redirect('ecom_app:user-form', user.dj_user_id)
 
-
-def UserListView(req):
-    users = models.Users.objects.all()
-    return render(req, 'ecom_app/backend/user_list.html', context={
-        'users': users,
-        'heading': 'Customer List'
-    })
 
 
 '''

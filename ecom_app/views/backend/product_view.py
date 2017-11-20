@@ -9,7 +9,19 @@ from django.utils.decorators import method_decorator
 
 
 # Create your views here.
-@method_decorator(my_custom_position_decorator, name="get")
+@my_custom_position_decorator
+def product_list_view(request):
+    template = 'ecom_app/backend/prod_list.html'
+    title = 'Product List'
+    heading = 'Product List'
+    prods = models.Product.objects.all()
+
+    context = {'prods': prods, 'title': title, 'heading': heading}
+
+    return render(request, template, context)
+
+
+@method_decorator(my_custom_position_decorator, name="dispatch")
 class CrudProduct(View):
     template = 'ecom_app/backend/prod_form.html'
     title = 'Product Form'
@@ -110,7 +122,7 @@ class CrudProduct(View):
                        'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
 
-
+@method_decorator(my_custom_position_decorator, name="dispatch")
 class CrudProductTabular(View):
     template = 'ecom_app/backend/prod_form_tabular.html'
     title = 'Product Form'
@@ -195,17 +207,6 @@ class CrudProductTabular(View):
             msg = 'Data inserted...'
             context = {'cats': cats, 'brands': brands, 'msg': msg, 'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
-
-
-def product_list_view(request):
-    template = 'ecom_app/backend/prod_list.html'
-    title = 'Product List'
-    heading = 'Product List'
-    prods = models.Product.objects.all()
-
-    context = {'prods': prods, 'title': title, 'heading': heading}
-
-    return render(request, template, context)
 
 
 def product_single_view(request, prod_id):

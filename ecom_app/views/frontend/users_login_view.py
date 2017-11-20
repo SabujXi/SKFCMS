@@ -20,20 +20,23 @@ class UserReg(View):
         return render(req, self.template, context)
 
     def post(self, req):
-        user_name = req.POST['user_name']
+        name = req.POST['name']
+        mobile = req.POST['mobile']
         email = req.POST['email']
+        username = req.POST['username']
         password = req.POST['password']
         djuser = DjUser.objects.create_user(
-            username=email,
+            username=username,
             email=email,
             password=password
         )
-        djuser.first_name=user_name
+        djuser.first_name=name
         djuser.save()
 
         # Relation
         user = models.Users(
-            dj_user=djuser
+            dj_user=djuser,
+            mobile = mobile
         )
         user.save()
         messages.info(req,"Successfully saved - Please Login!")
@@ -44,9 +47,9 @@ class UserReg(View):
 class UserLogin(UserReg):
 
     def post(self, req):
-        email = req.POST['email']
+        username = req.POST['username']
         password = req.POST['password']
-        djuser = authenticate(req, username=email, password=password)
+        djuser = authenticate(req, username=username, password=password)
         if djuser:
             login(req, djuser)
             return redirect('ecom_app:front-index')

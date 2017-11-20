@@ -2,10 +2,23 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from ecom_app import models
 from django.views import View
+from django.utils.decorators import method_decorator
+from decorators_module.my_custom_auth_decorators import my_custom_position_decorator
 
 
 # Create your views here.
+@my_custom_position_decorator
+def category_list_view(request):
+    template = 'ecom_app/backend/cat_list.html'
+    title = 'Category List'
+    heading = 'Category List'
+    cats = models.Category.objects.all()
 
+    context = {'cats': cats, 'title': title, 'heading': heading}
+
+    return render(request, template, context)
+
+@method_decorator(my_custom_position_decorator, name="dispatch")
 class CrudCategory(View):
     template = 'ecom_app/backend/cat_form.html'
     title = 'Category Form'
@@ -51,6 +64,15 @@ class CrudCategory(View):
         return render(request, self.template, context={'cat': cat, 'msg': msg, 'title': self.title})
 
 
+@my_custom_position_decorator
+def category_delete(request, cat_id):
+    template = 'ecom_app/backend/cat_list.html'
+    cat_id = int(cat_id)
+    if cat_id:
+        cats = models.Category.objects.get(id=cat_id)
+        cats.delete()
+        return redirect('ecom_app:cat-list')
+
 '''
 def cat_form_view(request, cat_id):
 	template='ecom_app/cat_form.html'
@@ -94,40 +116,3 @@ def cat_form_view(request, cat_id):
 		return render(request, template, context={'cat':cat, 'msg':msg})
 '''
 
-
-def category_list_view(request):
-    template = 'ecom_app/backend/cat_list.html'
-    title = 'Category List'
-    heading = 'Category List'
-    cats = models.Category.objects.all()
-
-    context = {'cats': cats, 'title': title, 'heading': heading}
-
-    return render(request, template, context)
-
-
-def category_single_view(request, cat_id):
-    cat_id = int(cat_id)
-    template = 'ecom_app/backend/cat_single.html'
-    title = 'Category Views'
-    cats = models.Category.objects.get(id=cat_id)
-    context = {'cat': cats, 'title': title}
-    return render(request, template, context)
-
-
-def category_conf_del(request, cat_id):
-    cat_id = int(cat_id)
-    template = 'ecom_app/backend/cat_del_conf.html'
-    title = 'Are you sure to delete?'
-    cats = models.Category.objects.get(id=cat_id)
-    context = {'cat': cats, 'title': title}
-    return render(request, template, context)
-
-
-def category_delete(request, cat_id):
-    template = 'ecom_app/backend/cat_list.html'
-    cat_id = int(cat_id)
-    if cat_id:
-        cats = models.Category.objects.get(id=cat_id)
-        cats.delete()
-        return redirect('ecom_app:cat-list')

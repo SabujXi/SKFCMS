@@ -16,7 +16,7 @@
                     </div>
                     <form method="POST" action="{% url 'ecom_app:login' %}">
                         {% csrf_token %}
-                        <input type="email" name="email" placeholder="Email">
+                        <input type="text" name="username" placeholder="User Name">
                         <input type="password" name="password" placeholder="Password">
                         <!--<span> <input type="checkbox" class="checkbox"> Keep me signed in </span>-->
                         <button type="submit" class="btn btn-default">Login</button>
@@ -31,8 +31,10 @@
                     <h2>New User Signup!</h2>
                     <form method="POST" action="{% url 'ecom_app:reg' %}">
                         {% csrf_token %}
-                        <input type="text" name="user_name" placeholder="Name">
+                        <input type="text" name="name" placeholder="Name">
+                        <input type="text" name="mobile" placeholder="Mobile">
                         <input type="email" name="email" placeholder="Email Address">
+                        <input type="text" name="username" placeholder="User Name">
                         <input type="password" name="password" placeholder="Password">
                         <button type="submit" class="btn btn-default">Signup</button>
                     </form>

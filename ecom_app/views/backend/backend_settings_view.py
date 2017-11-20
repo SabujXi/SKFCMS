@@ -6,10 +6,11 @@ from django.conf import settings
 import os
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from decorators_module.my_custom_auth_decorators import my_custom_position_decorator
 
 
 # Create your views here.
-@method_decorator(login_required, name="get")
+@method_decorator(my_custom_position_decorator, name="dispatch")
 class CrudSiteSetting(View):
     template = "ecom_app/backend/site_settings.html"
     # How to apply this decorator on class

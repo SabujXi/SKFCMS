@@ -1,8 +1,20 @@
 from django.shortcuts import render, redirect
 from ecom_app import models
 from django.views import View
+from django.utils.decorators import method_decorator
+from decorators_module.my_custom_auth_decorators import my_custom_position_decorator
 
 
+@my_custom_position_decorator
+def BrandsListView(req):
+    brands = models.Brands.objects.all()
+    return render(req, 'ecom_app/backend/brands_list.html', context={
+        'brands': brands,
+        'heading': 'Brands List'
+    })
+
+
+@method_decorator(my_custom_position_decorator, name="dispatch")
 class BrandsCreateOrEditView(View):
     template = 'ecom_app/backend/brands_form.html'
     heading = 'Brand Form'
@@ -49,12 +61,7 @@ class BrandsCreateOrEditView(View):
         })
 
 
-def BrandsListView(req):
-    brands = models.Brands.objects.all()
-    return render(req, 'ecom_app/backend/brands_list.html', context={
-        'brands': brands,
-        'heading': 'Brands List'
-    })
+
 
 '''
 def BrandsViewView(req, brand_id):
@@ -65,7 +72,7 @@ def BrandsViewView(req, brand_id):
         'brand': brand
     })
 '''
-
+@my_custom_position_decorator
 def BrandsDeleteView(req, brand_id):
     brand_id = int(brand_id)
     brand = models.Brands.objects.get(id=brand_id)

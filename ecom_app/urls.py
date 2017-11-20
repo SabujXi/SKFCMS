@@ -34,7 +34,7 @@ from ecom_app.views.backend.index_view import (
 from ecom_app.views.backend.backend_settings_view import (CrudSiteSetting)
 
 from ecom_app.views.backend.category_view import (
-    CrudCategory, category_list_view, category_single_view, category_conf_del, category_delete,
+    CrudCategory, category_list_view, category_delete,
 )
 
 from ecom_app.views.backend.product_view import (
@@ -47,7 +47,7 @@ from ecom_app.views.backend.brands_view import (
 
 
 from ecom_app.views.backend.user_view import (
-    CrudUser, UserListView,
+    CrudUser, user_list_view,
 )
 
 from ecom_app.views.backend.menu_views import (
@@ -78,8 +78,6 @@ urlpatterns = [
     # url pattern for category
     url(r'^cat-form/(?P<cat_id>[0-9]*)$', CrudCategory.as_view(), name='cat-form'),
     url(r'^cat-list/$', category_list_view, name='cat-list'),
-    url(r'^cat-single/([0-9]+)$', category_single_view, name='cat-single'),
-    url(r'^cat-del-conf/([0-9]+)$', category_conf_del, name='cat-conf-del'),
     url(r'^cat-delete/([0-9]+)$', category_delete, name='cat-delete'),
 
     # url pattern for product
@@ -98,7 +96,7 @@ urlpatterns = [
 
     # url pattern for Users
     url(r'^user-form/(?P<user_id>[0-9]*)$', CrudUser.as_view(), name='user-form'),
-    url(r'^user-list/$', UserListView, name='user-list'),
+    url(r'^user-list/$', user_list_view, name='user-list'),
     #url(r'^supplier-delete/([0-9]+)$', SuppliersDeleteView, name='suppliers-delete'),
 
     # url(r'^menu/$', menu_views, name='menu'),

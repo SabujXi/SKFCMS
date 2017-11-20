@@ -1,32 +1,56 @@
 {% extends 'ecom_app/backend/base.html' %}
-{% block title %} {% if brand.id %}Modify Brand: {{ brand.name }}{% else %} Add New Brand{% endif %} {% endblock title %}
+{% block title %} {% if user.dj_user_id %}Update User : {{ user.dj_user.first_name }}{% else %} Add New User{% endif %} {% endblock title %}
 
 {% block heading %}{{heading}}{% endblock heading %}
 
 {% if msg %}
-    {% block msg %}
-        {{ msg }}
-    {% endblock %}
+{% block msg %}
+{{ msg }}
+{% endblock %}
 {% endif %}
 
 {% block content %}
 <div class="col-md-8 col-md-offset-2">
-    <form action="{% url 'ecom_app:user-form' user.id %}" method="POST">
+    <form action="{% url 'ecom_app:user-form' user.dj_user_id %}" method="POST">
         {% csrf_token %}
-      <div class="form-group">
-        <label>User Name</label>
-        <input type="text" class="form-control" name="name" placeholder="User Name" value="{{ user.user_name }}" >
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="text" class="form-control" name="email" placeholder="Email" value="{{ user.email }}" >
-      </div>
-      <div class="form-group">
-        <label >Password</label>
-        <input type="password" class="form-control" name="password" placeholder="Password" value="{{ user.password }}" >
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:user-form' '' %}">Add New</a>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name" placeholder="First Name"
+                   value="{{ user.dj_user.first_name }}">
+        </div>
+        <div class="form-group">
+            <label>User Name</label>
+            <input type="text" class="form-control" name="username" placeholder="User Name"
+                   value="{{ user.dj_user.username }}" readonly>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" name="email" placeholder="Email" value="{{ user.dj_user.email }}"
+                   readonly>
+        </div>
+        <div class="form-group">
+            <label>Mobile</label>
+            <input type="text" class="form-control" name="mobile" placeholder="Mobile" value="{{ user.mobile }}">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="sel1">Select Role:</label>
+            <select name="position" class="form-control" id="sel1">
+                <option value="">--- Select ---</option>
+                {% for value, label in position %}
+                    <option value="{{value}}"
+                        {% if user.position == value %}
+                            selected="selected"
+                        {% endif %}
+                    >{{label}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:user-form' '' %}">Add New</a>
     </form>
-</div> 
+</div>
 {% endblock content %}
