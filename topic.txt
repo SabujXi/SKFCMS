@@ -1,0 +1,12 @@
+1. Session + Cookie (User validation from session, store data in session, like store product in cart)
+2. Email Verification (User Registration)
+3. Formset (Tabular Form)
+4. Handling 404s
+5. Reusable apps
+6. Change Database
+7. Relational Query
+8. Generic View
+9. Django Rest Api
+10. Django Signals
+11. Import Metadata
+12. Django Deployment

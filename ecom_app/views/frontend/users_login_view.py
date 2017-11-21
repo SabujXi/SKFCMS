@@ -57,6 +57,7 @@ class UserLogin(UserReg):
             messages.info(req, "Invalid Credentials")
             return redirect('ecom_app:login')
 
+
 def logout_view(request):
     logout(request)
     return redirect('ecom_app:login')

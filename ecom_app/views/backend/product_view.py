@@ -4,12 +4,12 @@ from django.views import View
 from django.conf import settings
 import os
 from django.http import FileResponse
-from decorators_module.my_custom_auth_decorators import my_custom_position_decorator
+from decorators_module.my_custom_auth_decorators import custom_manager_decorator
 from django.utils.decorators import method_decorator
 
 
 # Create your views here.
-@my_custom_position_decorator
+@custom_manager_decorator
 def product_list_view(request):
     template = 'ecom_app/backend/prod_list.html'
     title = 'Product List'
@@ -21,7 +21,7 @@ def product_list_view(request):
     return render(request, template, context)
 
 
-@method_decorator(my_custom_position_decorator, name="dispatch")
+@method_decorator(custom_manager_decorator, name="dispatch")
 class CrudProduct(View):
     template = 'ecom_app/backend/prod_form.html'
     title = 'Product Form'
@@ -122,7 +122,7 @@ class CrudProduct(View):
                        'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
 
-@method_decorator(my_custom_position_decorator, name="dispatch")
+@method_decorator(custom_manager_decorator, name="dispatch")
 class CrudProductTabular(View):
     template = 'ecom_app/backend/prod_form_tabular.html'
     title = 'Product Form'
@@ -228,7 +228,7 @@ def prod_conf_del(request, prod_id):
     return render(request, template, context)
 '''
 
-
+@custom_manager_decorator
 def product_delete(request, prod_id):
     template = 'ecom_app/backend/prod_list.html'
     prod_id = int(prod_id)

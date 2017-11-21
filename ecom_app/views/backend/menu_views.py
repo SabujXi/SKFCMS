@@ -7,10 +7,10 @@ from django.db.models import Q
 from django.contrib import messages
 from dynamic_menu_module.menu import menu_processor
 from django.utils.decorators import method_decorator
-from decorators_module.my_custom_auth_decorators import my_custom_position_decorator
+from decorators_module.my_custom_auth_decorators import custom_admin_decorator
 
 
-@method_decorator(my_custom_position_decorator, name="dispatch")
+@method_decorator(custom_admin_decorator, name="dispatch")
 class CreateEditMenuView(View):
     template = 'ecom_app/backend/menu_form.html'
 
@@ -109,7 +109,7 @@ class CreateEditMenuView(View):
 
             return redirect("ecom_app:create_edit_menu", menu.id)
 
-@my_custom_position_decorator
+@custom_admin_decorator
 def menu_list_view(request):
     template='ecom_app/backend/menu_list.html'
     title='Menu List'

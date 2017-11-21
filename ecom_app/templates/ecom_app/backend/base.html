@@ -43,9 +43,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ user.first_name }}</a></li>
                 <li><a href="{% url 'ecom_app:site-settings' '' %}">Settings</a></li>
                 <li><a href="#">Profile</a></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="{% url 'ecom_app:user-logout' %}">Logout</a></li>
                 <li><a href="{% url 'ecom_app:front-index' %}" target="_blank"><span class="glyphicon glyphicon-eye-open"></span></a></li>
             </ul>
             <form class="navbar-form navbar-right">
@@ -77,9 +78,18 @@
         {% endblock side_menu %}
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div>
+                {% for msg in messages %}
+                    <div class="alert alert-warning alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ msg.message }}
+                    </div>
+                {% endfor %}
+            </div>
             <h4 class="page-header">{% block heading %}{{heading}}{% endblock heading %}</h4>
 
             {% block right_content %}
+
 
             {% endblock right_content %}
 

@@ -70,7 +70,7 @@ urlpatterns = [
     url(r'^logout/$', logout_view, name='logout'),
     url(r'^contact/$', contact_view, name='contact'),
 
-    url(r'^admin/$', back_index_view, name='back-index'),
+    url(r'^dashboard/$', back_index_view, name='back-index'),
     url(r'^settings/(?P<site_id>[0-9]*)$', CrudSiteSetting.as_view(), name='site-settings'),
 
 
@@ -95,7 +95,7 @@ urlpatterns = [
 
 
     # url pattern for Users
-    url(r'^user-login/$', BackendUserLogin.as_view(), name='user-login'),
+    url(r'^admin/$', BackendUserLogin.as_view(), name='user-login'),
     url(r'^user-logout/$', backend_logout_view, name='user-logout'),
     url(r'^user-form/(?P<user_id>[0-9]*)$', CrudUser.as_view(), name='user-form'),
     url(r'^user-list/$', user_list_view, name='user-list'),

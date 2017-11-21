@@ -3,11 +3,11 @@ from django.http import HttpResponse
 from ecom_app import models
 from django.views import View
 from django.utils.decorators import method_decorator
-from decorators_module.my_custom_auth_decorators import my_custom_position_decorator
+from decorators_module.my_custom_auth_decorators import custom_manager_decorator
 
 
 # Create your views here.
-@my_custom_position_decorator
+@custom_manager_decorator
 def category_list_view(request):
     template = 'ecom_app/backend/cat_list.html'
     title = 'Category List'
@@ -18,7 +18,7 @@ def category_list_view(request):
 
     return render(request, template, context)
 
-@method_decorator(my_custom_position_decorator, name="dispatch")
+@method_decorator(custom_manager_decorator, name="dispatch")
 class CrudCategory(View):
     template = 'ecom_app/backend/cat_form.html'
     title = 'Category Form'
@@ -64,7 +64,7 @@ class CrudCategory(View):
         return render(request, self.template, context={'cat': cat, 'msg': msg, 'title': self.title})
 
 
-@my_custom_position_decorator
+@custom_manager_decorator
 def category_delete(request, cat_id):
     template = 'ecom_app/backend/cat_list.html'
     cat_id = int(cat_id)

@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from ecom_app.models.choices.choices import position_choices
 from django.utils.decorators import method_decorator
-from decorators_module.my_custom_auth_decorators import my_custom_position_decorator
+from decorators_module.my_custom_auth_decorators import custom_admin_decorator, custom_manager_decorator, custom_admin_manager_decorator
 
 
 class BackendUserLogin(View):
@@ -20,23 +20,22 @@ class BackendUserLogin(View):
         username = req.POST['username']
         password = req.POST['password']
         # print(username)
-        djuser = authenticate(req, username=username, password=password)
-        print('Auth: ', djuser)
-        if djuser:
-            login(req, djuser)
+        back_user = authenticate(req, username=username, password=password)
+        if back_user:
+            login(req, back_user)
             return redirect('ecom_app:back-index')
         else:
             messages.info(req, "Invalid Credentials")
             return redirect('ecom_app:user-login')
 
 
-@my_custom_position_decorator
+@custom_admin_manager_decorator
 def backend_logout_view(request):
     logout(request)
     return redirect('ecom_app:user-login')
 
 
-@my_custom_position_decorator
+@custom_admin_decorator
 def user_list_view(req):
     template = 'ecom_app/backend/user_list.html'
     users = models.Users.objects.all()
@@ -44,7 +43,7 @@ def user_list_view(req):
     return render(req, template, context)
 
 
-@method_decorator(my_custom_position_decorator, name="dispatch")
+@method_decorator(custom_admin_decorator, name="dispatch")
 class CrudUser(View):
     template = 'ecom_app/backend/user_form.html'
     heading = 'User Form'
