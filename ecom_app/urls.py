@@ -19,7 +19,12 @@ from ecom_app.views.frontend.checkout_view import (
 )
 
 from ecom_app.views.frontend.users_login_view import (
-    UserReg, UserLogin, logout_view, forgot_pass, reset_pass
+    UserReg,
+    UserLogin,
+    logout_view,
+    forgot_pass,
+    reset_pass,
+    verify_email_view
 )
 
 from ecom_app.views.frontend.contact_view import (
@@ -101,6 +106,7 @@ urlpatterns = [
     url(r'^user-logout/$', backend_logout_view, name='user-logout'),
     url(r'^user-form/(?P<user_id>[0-9]*)$', CrudUser.as_view(), name='user-form'),
     url(r'^user-list/$', user_list_view, name='user-list'),
+    url(r'^email-ver/(?P<token>[a-zA-Z0-9_-]+)$', verify_email_view, name='email-verification'),
     #url(r'^supplier-delete/([0-9]+)$', SuppliersDeleteView, name='suppliers-delete'),
 
     # url(r'^menu/$', menu_views, name='menu'),

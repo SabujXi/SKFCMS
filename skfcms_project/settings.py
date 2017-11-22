@@ -140,3 +140,16 @@ UPLOAD_DIR = BASE_DIR + os.sep + UPLOAD_URI_PREFIX
 if not os.path.exists(UPLOAD_DIR):
     os.mkdir(UPLOAD_DIR)
 # < file upload dir
+
+# EMAIL_USE_SSL = True
+EMAIL_HOST = "smtp.sendgrid.net"
+EMAIL_HOST_USER = "firozbd"
+EMAIL_HOST_PASSWORD = "django@2017"
+# EMAIL_PORT = 465
+# EMAIL_PORT = 25
+
+# EMAIL_HOST = 'smtp.sendgrid.net'
+# EMAIL_HOST_USER = 'sendgrid_username'
+# EMAIL_HOST_PASSWORD = 'sendgrid_password'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

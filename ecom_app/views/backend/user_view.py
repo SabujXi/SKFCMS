@@ -63,14 +63,14 @@ class CrudUser(View):
         mobile = req.POST['mobile']
         # email = req.POST['email']
         # username = req.POST['username']
-        # password = req.POST['password']
+        password = req.POST['password']
         user_position = req.POST['position']
 
         if user_id:
             user_id=int(user_id)
             duser = Djuser.objects.get(pk=user_id)
             duser.first_name=name
-            # duser.set_password = password
+            duser.set_password(password)
             duser.save()
 
             user = models.Users.objects.get(dj_user_id=user_id)

@@ -42,7 +42,7 @@ def custom_admin_decorator(view_fun):
             return redirect('ecom_app:login')
         else:
             my_user = Users.objects.get(dj_user=req.user)
-            if my_user.position == "user":
+            if my_user.is_user:
                 messages.warning(req, "Request not valid! ")
                 return redirect('ecom_app:login')
             elif my_user.position == "admin":
@@ -64,10 +64,10 @@ def custom_manager_decorator(view_fun):
             return redirect('ecom_app:login')
         else:
             my_user = Users.objects.get(dj_user=req.user)
-            if my_user.position == "user":
+            if my_user.is_user:
                 messages.warning(req, "Request not valid! ")
                 return redirect('ecom_app:login')
-            elif my_user.position == "manager":
+            elif my_user.is_manager:
                 pass
             else:
                 messages.warning(req, "You are not Manager! You can't access this page. ")
