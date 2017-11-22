@@ -23,7 +23,7 @@
       </div>
       <div class="form-group">
         <label for="BrandDescription" >Brand Description</label>
-        <textarea class="form-control" name="desc" rows="3">{{ brand.description }}</textarea>
+        <textarea class="form-control classy-editor" name="desc" rows="3">{{ brand.description }}</textarea>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
       <a class="btn btn-success pull-right" role="buton" href="{% url 'ecom_app:brand-form' '' %}">Add New</a>

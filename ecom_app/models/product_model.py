@@ -19,3 +19,12 @@ class Product(models.Model):
     def get_image_file_path(self):
         return self.image_file_path
 
+
+class ProductReview(models.Model):
+    product = models.ForeignKey("ecom_app.Product", on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField(max_length=250)
+    email = models.EmailField(max_length=250)
+    review = models.CharField(max_length=300)
+    status = models.BooleanField()
+    create_date = models.DateTimeField(auto_now_add=True, null=True)
+    update_date = models.DateTimeField(auto_now=True, null=True)

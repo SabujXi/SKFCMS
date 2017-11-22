@@ -33,7 +33,7 @@
             <td>{{forloop.counter}}</td>
             <td><img src="{% url 'ecom_app:upload_file_provider' prod.get_image_file_path %}" style="width:50px; height: 50px; padding:2px; border: 1px solid red;" ></td>
             <td>{{ prod.name }}</td>
-            <td>{{ prod.description }}</td>
+            <td>{% autoescape off %}{{ prod.description }}{% endautoescape %}</td>
             <td>
                 {% with product_categories=prod.category.all %}
                     {% for cat in product_categories %}
@@ -47,7 +47,7 @@
             </td>
             <td align="center">{{ prod.price }}</td>
             <td align="center">{{ prod.discount }}</td>
-            <td align="center">0.00</td>
+            <td align="center">0</td>
             <td class="text-center">
                 <a class="btn btn-warning btn-xs" role="button" href="{% url 'ecom_app:prod-form' prod.id %}">Edit</a>
                 <a class="btn btn-danger btn-xs" role="button" href="{% url 'ecom_app:prod-del' prod.id %}">Delete</a>

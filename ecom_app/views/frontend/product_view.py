@@ -22,6 +22,7 @@ def brand_porduct_view(request, brand_id=None):
     return render(request, template, context)
 
 
+# it's like single product view
 def porduct_details_view(request, prod_id=None):
     template = 'ecom_app/frontend/product_details.html'
     prod = models.Product.objects.get(pk=prod_id)

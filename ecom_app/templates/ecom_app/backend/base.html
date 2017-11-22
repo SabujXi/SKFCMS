@@ -9,6 +9,7 @@
     <link href="{% static 'ecom_app/styles/css/admin-sidebar.css' %}" rel="stylesheet">
     <link href="{% static 'ecom_app/styles/css/custom.css' %}" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+    <link href="{% static 'ecom_app/styles/css/jquery.classyedit.css' %}" rel="stylesheet">
     <script type="text/javascript">
         $(document).ready(function() {
             $('#add').click(function() {
@@ -24,6 +25,7 @@
                 });
             });
         });
+
 
     </script>
 </head>
@@ -43,11 +45,13 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ user.first_name }}</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ user.first_name }}</a>
+                </li>
                 <li><a href="{% url 'ecom_app:site-settings' '' %}">Settings</a></li>
                 <li><a href="#">Profile</a></li>
                 <li><a href="{% url 'ecom_app:user-logout' %}">Logout</a></li>
-                <li><a href="{% url 'ecom_app:front-index' %}" target="_blank"><span class="glyphicon glyphicon-eye-open"></span></a></li>
+                <li><a href="{% url 'ecom_app:front-index' %}" target="_blank"><span
+                        class="glyphicon glyphicon-eye-open"></span></a></li>
             </ul>
             <form class="navbar-form navbar-right">
                 <input type="text" class="form-control" placeholder="Search...">
@@ -64,7 +68,8 @@
         {% block side_menu %}
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li class="active"><a href="{% url 'ecom_app:back-index' %}">Dashboard <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="{% url 'ecom_app:back-index' %}">Dashboard <span
+                        class="sr-only">(current)</span></a></li>
                 <li><a href="{% url 'ecom_app:menu-list' %}">Menu</a></li>
                 <li><a href="{% url 'ecom_app:cat-list' %}">Category</a></li>
                 <li><a href="#">Tags (Pending)</a></li>
@@ -80,10 +85,10 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div>
                 {% for msg in messages %}
-                    <div class="alert alert-warning alert-dismissable">
+                <div class="alert alert-warning alert-dismissable">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     {{ msg.message }}
-                    </div>
+                </div>
                 {% endfor %}
             </div>
             <h4 class="page-header">{% block heading %}{{heading}}{% endblock heading %}</h4>
@@ -97,8 +102,14 @@
         {% endblock content %}
     </div>
 </div>
+    <script>
+        $(document).ready(function() {
+            $(".classy-editor").ClassyEdit();
+        });
+    </script>
 
 <script src="{% static 'ecom_app/libs/bootstrap/js/jquery.min.js' %}"></script>
 <script src="{% static 'ecom_app/libs/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'ecom_app/styles/js/jquery.classyedit.js' %}"></script>
 </body>
 </html>

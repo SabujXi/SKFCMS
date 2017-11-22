@@ -1,3 +1,4 @@
+from django.utils.html import escape
 from django.shortcuts import render, redirect
 from ecom_app import models
 from django.views import View
@@ -51,10 +52,10 @@ class CrudProduct(View):
             return render(request, self.template, context)
 
     def post(self, request, prod_id=None):
-        prod_id=int(prod_id)
+
         cats = models.Category.objects.all()
         brands = models.Brands.objects.all()
-        suppliers = models.Suppliers.objects.all()
+        # suppliers = models.Suppliers.objects.all()
 
         name = request.POST.get('name', '')
         desc = request.POST.get('desc', '')
@@ -89,7 +90,7 @@ class CrudProduct(View):
             prod.price = price
             prod.discount = discount
             prod.image_file_path = image_file_path
-            prod.brands_id = brand_id
+            prod.brand_id = brand_id
             prod.stock_status = stock_status
             prod.save()
             # prod.category.related_set = categories
@@ -105,7 +106,7 @@ class CrudProduct(View):
                 price=price,
                 discount=discount,
                 image_file_path=image_file_path,
-                brands_id=brand_id,
+                brand_id=brand_id,
                 stock_status=stock_status
             )
             prod.save()
@@ -118,7 +119,7 @@ class CrudProduct(View):
 
             # prod.category.add(category) This line for single category value
             msg = 'Data inserted...'
-            context = {'cats': cats, 'brands': brands, 'msg': msg, 'suppliers': suppliers,
+            context = {'cats': cats, 'brands': brands, 'msg': msg,
                        'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
 

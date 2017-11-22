@@ -61,3 +61,21 @@ class UserLogin(UserReg):
 def logout_view(request):
     logout(request)
     return redirect('ecom_app:login')
+
+
+def forgot_pass(request):
+    template='ecom_app/frontend/forgot_pass.html'
+    title = 'Forgot Password?'
+    heading = 'Forgot Password?'
+    context = {'heading': heading, 'title': title}
+
+    return render(request, template, context)
+
+
+def reset_pass(request):
+    template='ecom_app/frontend/reset_pass.html'
+    title = 'Reset Password?'
+    heading = 'Reset Password?'
+    context = {'heading': heading, 'title': title}
+
+    return render(request, template, context)

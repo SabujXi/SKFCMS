@@ -19,7 +19,7 @@ from ecom_app.views.frontend.checkout_view import (
 )
 
 from ecom_app.views.frontend.users_login_view import (
-    UserReg, UserLogin, logout_view
+    UserReg, UserLogin, logout_view, forgot_pass, reset_pass
 )
 
 from ecom_app.views.frontend.contact_view import (
@@ -68,6 +68,8 @@ urlpatterns = [
     url(r'^reg/$', UserReg.as_view(), name='reg'),
     url(r'^login/$', UserLogin.as_view(), name='login'),
     url(r'^logout/$', logout_view, name='logout'),
+    url(r'^forgot-pass/$', forgot_pass, name='forgot-pass'),
+    url(r'^reset-pass/$', reset_pass, name='reset-pass'),
     url(r'^contact/$', contact_view, name='contact'),
 
     url(r'^dashboard/$', back_index_view, name='back-index'),

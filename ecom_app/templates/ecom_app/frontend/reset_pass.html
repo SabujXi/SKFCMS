@@ -1,0 +1,31 @@
+{% extends 'ecom_app/frontend/base.html' %}
+
+{% block title %}{{title}}{% endblock title %}
+
+{% block content %}
+<section id="form"><!--form-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="login-form"><!--login form-->
+                    <h2>Reset Password?</h2>
+                    <div style="color:red;margin:10px 0px;">
+                    {% for message in messages %}
+                        {{message}}
+                    {% endfor %}
+                    </div>
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <input type="password" name="reset" placeholder="New Password">
+                        <!--<span> <input type="checkbox" class="checkbox"> Keep me signed in </span>-->
+
+                        <button type="submit" class="btn btn-default">Reset</button>
+
+                    </form>
+                </div><!--/login form-->
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock content %}

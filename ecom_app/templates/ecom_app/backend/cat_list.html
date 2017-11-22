@@ -25,7 +25,7 @@
         <tr>
             <td>{{forloop.counter}}</td>
             <td>{{ cat.name }}</td>
-            <td>{{ cat.description }}</td>
+            <td>{% autoescape off %} {{ cat.description }} {% endautoescape %}</td>
             <td class="text-center" style="width:200px;">
                 <a class="btn btn-warning btn-xs" role="button" href="{% url 'ecom_app:cat-form' cat.id %}">Edit</a>
                 <a class="btn btn-danger btn-xs" role="button" href="{% url 'ecom_app:cat-delete' cat.id %}">Delete</a>

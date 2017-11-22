@@ -7,9 +7,8 @@ class MenuForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['parent'] = forms.ChoiceField(required=False, choices=parent_choices, label="Select Parent")
 
-    name = forms.CharField(required=True, max_length=64, label="Name",
-                           widget=forms.TextInput(attrs={'class': 'jhogra jhati', 'id': 'para'}))
-    description = forms.CharField(required=False, widget=forms.Textarea, label="Description")
+    name = forms.CharField(required=True, max_length=64, label="Name", widget=forms.TextInput(attrs={'class': 'jhogra jhati', 'id': 'para'}))
+    description = forms.CharField(required=False, widget=forms.Textarea(attrs={'class':'classy-editor'}), label="Description")
     type = forms.ChoiceField(required=True, choices=menu_type_choices, label="Menu Type")
     content = forms.CharField(required=True, label="Content")
     serial_no = forms.IntegerField(required=True, initial=0, label="Sorting Order")
