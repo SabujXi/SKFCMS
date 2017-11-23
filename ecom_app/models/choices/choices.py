@@ -7,8 +7,8 @@ menu_type_choices = [
 ]
 
 position_choices = [
-    ('admin', 'Admin'),
-    ('manager', 'Manager'),
-    ('user', 'User'),
+    ('ADMIN', 'Admin'),
+    ('MANAGER', 'Manager'),
+    ('USER', 'User'),
 
 ]

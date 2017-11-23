@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from ecom_app.models.users_model import Users
 
-
+# It was first decorator
 def my_custom_position_decorator(view_fun):
     def view_fun_wrapper(req, *args, **kwargs):
         # if req.user.is_anonymous:
@@ -32,6 +32,7 @@ def my_custom_position_decorator(view_fun):
         return view_fun(req, *args, **kwargs)
 
     return view_fun_wrapper
+# It was first decorator
 
 
 # Custom Admin Decorator
@@ -45,7 +46,7 @@ def custom_admin_decorator(view_fun):
             if my_user.is_user:
                 messages.warning(req, "Request not valid! ")
                 return redirect('ecom_app:login')
-            elif my_user.position == "admin":
+            elif my_user.is_admin:
                 pass
             else:
                 messages.warning(req, "You are not Admin! You can't access this page. ")
@@ -78,6 +79,7 @@ def custom_manager_decorator(view_fun):
     return view_fun_wrapper
 
 
+# Custom Admin & Manager Decorator
 def custom_admin_manager_decorator(view_fun):
     def view_fun_wrapper(req, *args, **kwargs):
         if req.user.is_anonymous:
@@ -85,10 +87,10 @@ def custom_admin_manager_decorator(view_fun):
             return redirect('ecom_app:login')
         else:
             my_user = Users.objects.get(dj_user=req.user)
-            if my_user.position == "user":
+            if my_user.is_user:
                 messages.warning(req, "Request not valid! ")
                 return redirect('ecom_app:login')
-            elif my_user.position == "admin" or my_user.position == "manager":
+            elif my_user.is_admin or my_user.is_manager:
                 pass
             else:
                 messages.warning(req, "You are not Admin or Manager! You can't access this page. ")

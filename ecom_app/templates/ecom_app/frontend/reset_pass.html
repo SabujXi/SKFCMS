@@ -14,9 +14,10 @@
                         {{message}}
                     {% endfor %}
                     </div>
-                    <form method="POST" action="">
+                    <form method="POST" action="{% url 'ecom_app:reset-pass' user_token.reset_password_token %}">
                         {% csrf_token %}
-                        <input type="password" name="reset" placeholder="New Password">
+                        <input type="hidden" name="reset_token" value="{{token}}" required>
+                        <input type="text" name="reset_pass" placeholder="New Password" required>
                         <!--<span> <input type="checkbox" class="checkbox"> Keep me signed in </span>-->
 
                         <button type="submit" class="btn btn-default">Reset</button>

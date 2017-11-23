@@ -71,10 +71,11 @@ urlpatterns = [
     url(r'^cart/$', cart_view, name='cart'),
     url(r'^checkout/$', checkout_view, name='checkout'),
     url(r'^reg/$', UserReg.as_view(), name='reg'),
+    url(r'^email-ver/(?P<token>[a-zA-Z0-9_-]+)$', verify_email_view, name='email-verification'),
     url(r'^login/$', UserLogin.as_view(), name='login'),
     url(r'^logout/$', logout_view, name='logout'),
     url(r'^forgot-pass/$', forgot_pass, name='forgot-pass'),
-    url(r'^reset-pass/$', reset_pass, name='reset-pass'),
+    url(r'^reset-pass/(?P<token>[a-zA-Z0-9_-]+)$', reset_pass, name='reset-pass'),
     url(r'^contact/$', contact_view, name='contact'),
 
     url(r'^dashboard/$', back_index_view, name='back-index'),
@@ -106,7 +107,7 @@ urlpatterns = [
     url(r'^user-logout/$', backend_logout_view, name='user-logout'),
     url(r'^user-form/(?P<user_id>[0-9]*)$', CrudUser.as_view(), name='user-form'),
     url(r'^user-list/$', user_list_view, name='user-list'),
-    url(r'^email-ver/(?P<token>[a-zA-Z0-9_-]+)$', verify_email_view, name='email-verification'),
+
     #url(r'^supplier-delete/([0-9]+)$', SuppliersDeleteView, name='suppliers-delete'),
 
     # url(r'^menu/$', menu_views, name='menu'),
