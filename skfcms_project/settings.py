@@ -24,14 +24,15 @@ SECRET_KEY = 'ssq*kec%1^&sjxxzlex$m(&8g3d6xiniq$4ok$cgd&lgh#%yd)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -131,6 +132,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 FILE_UPLOAD_HANDLERS = ["django.core.files.uploadhandler.MemoryFileUploadHandler",
  "django.core.files.uploadhandler.TemporaryFileUploadHandler"]
 
@@ -153,3 +155,5 @@ EMAIL_HOST_PASSWORD = "django@2017"
 # EMAIL_HOST_PASSWORD = 'sendgrid_password'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static_collected")

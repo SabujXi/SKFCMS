@@ -10,24 +10,11 @@
     <link href="{% static 'ecom_app/styles/css/custom.css' %}" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
     <link href="{% static 'ecom_app/styles/css/jquery.classyedit.css' %}" rel="stylesheet">
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#add').click(function() {
-               $('#myTable tbody').append('<tr> <input type="hidden" name="id" value="{{forloop.counter}}"> <td><input type="text" class="form-control" name="name" value="{{prod.name}}"></td> <td><input type="file" name="image_file" id="imageurl" class="imageurl"></td> <td> <select name="category" class="form-control"> {% with product_categories=prod.category.all %} <!-- Not understand about prod.category.all --> <option value="">--- Select ---</option> {% for cat in cats %} <option value="{{ cat.id }}" {% for c in product_categories %} {% if c.id == cat.id %} selected="selected" {% endif %} {% endfor %} > {{ cat.name }} </option> {% endfor %} {% endwith %} </select> </td> <td> <select name="brand" class="form-control"> <option value="">--- Select ---</option> {% for brand in brands %} <option value="{{ brand.id }}"  {% if prod.brands_id == brand.id %} selected="selected" {% endif %}  >{{brand.name}} </option>{% endfor %} </select> </td> <td><input type="number" class="form-control" name="price" value="{{prod.price}}"> </td> <td><input type="number" class="form-control" name="discount" value="{{prod.discount}}"></td> <td align="center"><input type="checkbox" name="record"></td> </tr>');
-            });
 
-            // Find and remove selected table rows
-            $("#rm").click(function(){
-                $("table tbody").find('input[name="record"]').each(function(){
-                    if($(this).is(":checked")){
-                        $(this).parents("tr").remove();
-                    }
-                });
-            });
-        });
+    {% block head_end %}
 
+    {% endblock head_end %}
 
-    </script>
 </head>
 <body>
 {% block top_nav_bar %}

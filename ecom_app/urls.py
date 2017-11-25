@@ -43,7 +43,7 @@ from ecom_app.views.backend.category_view import (
 )
 
 from ecom_app.views.backend.product_view import (
-    CrudProduct, CrudProductTabular, product_list_view, product_single_view, product_delete,
+    CrudProduct, CrudProductTabular, product_list_view, product_single_view, product_delete, TestProductCrudViewForFormset
 )
 
 from ecom_app.views.backend.brands_view import (
@@ -60,6 +60,10 @@ from ecom_app.views.backend.menu_views import (
 )
 
 from ecom_app.views.frontend.upload_file_provider import upload_file_provider_view
+
+# http error view
+
+from ecom_app.views import http_error_views
 
 urlpatterns = [
 
@@ -94,6 +98,7 @@ urlpatterns = [
     url(r'^prod-list/$', product_list_view, name='prod-list'),
     url(r'^prod-single/([0-9]+)$', product_single_view, name='prod-single'),
     url(r'^prod-del/([0-9]+)$', product_delete, name='prod-del'),
+    url(r'^formset$', TestProductCrudViewForFormset.as_view(), name='prod-formset'),
 
     # url pattern for brands
     url(r'^brand-form/(?P<brand_id>[0-9]*)$', BrandsCreateOrEditView.as_view(), name='brand-form'),
@@ -115,4 +120,8 @@ urlpatterns = [
     url(r'^menu-delete/(?P<menu_id>[0-9]+)$', menu_delete_view, name='delete_menu'),
     url(r'^create-edit-menu/(?P<menu_id>[0-9]*)$', CreateEditMenuView.as_view(), name='create_edit_menu'),
     url(r'^upload_dir/(?P<file_path>.*)', upload_file_provider_view, name="upload_file_provider")
+
 ]
+
+
+

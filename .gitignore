@@ -2,3 +2,4 @@
 db.sqlite3
 .idea/
 upload_dir/
+static_collected/

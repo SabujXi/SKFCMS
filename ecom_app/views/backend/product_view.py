@@ -126,8 +126,8 @@ class CrudProduct(View):
 @method_decorator(custom_manager_decorator, name="dispatch")
 class CrudProductTabular(View):
     template = 'ecom_app/backend/prod_form_tabular.html'
-    title = 'Product Form'
-    heading = 'Product Form'
+    title = 'Product Form Tabular'
+    heading = 'Product Form Tabular'
 
     def get(self, request, prod_id=None):
         cats = models.Category.objects.all()
@@ -135,15 +135,28 @@ class CrudProductTabular(View):
         if prod_id:
             prod_id = int(prod_id)
             prod = models.Product.objects.get(pk=prod_id)
-            context = {'prod': prod, 'cats': cats, 'brands': brands, 'title': self.title, 'heading': self.heading}
+            context = {
+                'cats': cats,
+                'prod': prod,
+                'brands': brands,
+                'title': self.title,
+                'heading': self.heading
+            }
             return render(request, self.template, context)
         else:
-            context = {'cats': cats, 'brands': brands, 'title': self.title, 'heading': self.heading}
+            context = {
+                'cats': cats,
+                'brands': brands,
+                'title': self.title,
+                'heading': self.heading
+            }
             return render(request, self.template, context)
 
     def post(self, request, prod_id=None):
+
         cats = models.Category.objects.all()
         brands = models.Brands.objects.all()
+        # suppliers = models.Suppliers.objects.all()
 
         name = request.POST.get('name', '')
         desc = request.POST.get('desc', '')
@@ -152,7 +165,8 @@ class CrudProductTabular(View):
         discount = request.POST.get('discount', '')
         image_file = request.FILES.get('image_file', None)
         category_ids = request.POST.getlist('category')
-        brand = request.POST.get('brand', '')
+        brand_id = request.POST.get('brand', '')
+        stock_status = request.POST.get('status', '')
 
         if image_file is not None:
             image_file_path = image_file.name
@@ -176,10 +190,9 @@ class CrudProductTabular(View):
             prod.category = categories
             prod.price = price
             prod.discount = discount
-
             prod.image_file_path = image_file_path
-
-            prod.brands_id = brand
+            prod.brand_id = brand_id
+            prod.stock_status = stock_status
             prod.save()
             # prod.category.related_set = categories
             msg = 'Data updated...'
@@ -194,7 +207,8 @@ class CrudProductTabular(View):
                 price=price,
                 discount=discount,
                 image_file_path=image_file_path,
-                brands_id=brand
+                brand_id=brand_id,
+                stock_status=stock_status
             )
             prod.save()
             prod.category.add(*categories)
@@ -206,7 +220,8 @@ class CrudProductTabular(View):
 
             # prod.category.add(category) This line for single category value
             msg = 'Data inserted...'
-            context = {'cats': cats, 'brands': brands, 'msg': msg, 'title': self.title, 'heading': self.heading}
+            context = {'cats': cats, 'brands': brands, 'msg': msg,
+                       'title': self.title, 'heading': self.heading}
             return render(request, self.template, context)
 
 
@@ -229,6 +244,7 @@ def prod_conf_del(request, prod_id):
     return render(request, template, context)
 '''
 
+
 @custom_manager_decorator
 def product_delete(request, prod_id):
     template = 'ecom_app/backend/prod_list.html'
@@ -238,3 +254,25 @@ def product_delete(request, prod_id):
         prod.delete()
         return redirect('ecom_app:prod-list')
         # return render(request, template, context)
+
+
+class TestProductCrudViewForFormset(View):
+    template = "ecom_app/backend/prod_form_tabular-formset.html"
+
+    def get(self, r):
+        from ecom_app.forms.product_form import TabularProductForm
+        from django.forms import formsets
+
+        brands = models.Brands.objects.all()
+        brands_choices = [(brand.id, brand.name) for brand in brands]
+
+        FormSet = formsets.formset_factory(TabularProductForm, extra=2)
+
+        form_set = FormSet(initial=[{"brand": brands_choices}])
+
+        return render(r, self.template, context={
+            "my_form_set": form_set
+        })
+
+    def post(self, r):
+        pass

@@ -1,0 +1,23 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %}{{title}}{% endblock title %}
+
+{% block heading %}{{heading}}{% endblock heading %}
+
+{% block msg %}
+<p>{{msg}}</p>
+{% endblock msg %}
+
+{% block right_content %}
+
+    <form action="{% url 'ecom_app:prod-form' prod.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for form in my_form_set %}
+            <p> Form {{ forloop.counter }} </p>
+            {{ form.as_table }}
+            <br><br>
+        {% endfor %}
+    <input type="submit">
+    </form>
+
+{% endblock right_content %}

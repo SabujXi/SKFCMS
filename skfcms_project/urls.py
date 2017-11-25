@@ -16,7 +16,12 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from ecom_app import urls as ecom_urls
+from ecom_app.views import http_error_views
 
 urlpatterns = [
     url(r'^', include(ecom_urls, namespace='ecom_app')),
 ]
+
+# handler404 = "ecom_app.views.http_error_views.http_404_view"
+handler404 = http_error_views.http_404_view
+

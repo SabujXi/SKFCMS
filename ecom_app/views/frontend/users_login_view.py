@@ -10,8 +10,8 @@ from django.contrib.auth.models import User as DjUser
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from uuid import uuid4
-from django.urls import reverse_lazy
 from django.urls import reverse
+
 
 class UserReg(View):
     template = 'ecom_app/frontend/login.html'
