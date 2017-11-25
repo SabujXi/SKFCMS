@@ -5,9 +5,10 @@
 {% block heading %}{{heading}}{% endblock heading %}
 
 
-{% block content %}
-<div style="width:100%; overflow: hidden;">
-    <a class="btn btn-success btn-xs pull-right" role="button" href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
+{% block right_content %}
+<div style="width:100%; margin:20px 0px; text-align:right; overflow: hidden;">
+    <a class="btn btn-primary btn-xs" role="button" href="{% url 'ecom_app:prod-form-tabular' '' %}">Add New (Tabular)</a>
+    <a class="btn btn-success btn-xs" role="button" href="{% url 'ecom_app:prod-form' '' %}">Add New</a>
 </div>
 {% if prods %}
 <div class="table-responsive">
@@ -15,33 +16,39 @@
 
       <thead>
         <tr>
-          <th>#</th>
-          <th>Image</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Discount</th>
-          <th>Actual Price</th>
-          <th class="text-center">Action</th>
+          <th width="50">#</th>
+          <th width="50">Image</th>
+          <th width="200">Name</th>
+          <th width="300">Description</th>
+          <th width="200">Category</th>
+          <th width="100">Price</th>
+          <th width="100">Discount</th>
+          <th width="100">Actual</th>
+          <th width="150" class="text-center">Action</th>
         </tr>
       </thead>
       <tbody>
     {% for prod in prods %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td><img src="{% url "ecom_app:upload_file_provider" prod.get_image_file_path %}" style="width:50px; height: 50px; padding:2px; border: 1px solid red;" ></td>
+            <td><img src="{% url 'ecom_app:upload_file_provider' prod.get_image_file_path %}" style="width:50px; height: 50px; padding:2px; border: 1px solid red;" ></td>
             <td>{{ prod.name }}</td>
-            <td>{{ prod.description }}</td>
+            <td>{% autoescape off %}{{ prod.description }}{% endautoescape %}</td>
             <td>
-                {% for cat in product_categories %}
-                    {{cat.name}},
-                {% endfor %}
+                {% with product_categories=prod.category.all %}
+                    {% for cat in product_categories %}
+                        {% for c in product_categories %}
+                            {% if c.id == cat.id %}
+                                {{ c.name }}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endwith %}
             </td>
             <td align="center">{{ prod.price }}</td>
             <td align="center">{{ prod.discount }}</td>
-            <td align="center">0.00</td>
-            <td class="text-center" style="width:200px;">
+            <td align="center">0</td>
+            <td class="text-center">
                 <a class="btn btn-warning btn-xs" role="button" href="{% url 'ecom_app:prod-form' prod.id %}">Edit</a>
                 <a class="btn btn-danger btn-xs" role="button" href="{% url 'ecom_app:prod-del' prod.id %}">Delete</a>
             </td>
@@ -53,4 +60,4 @@
 {% else %}
     <p>Product not found!</p>
 {% endif %}
-{% endblock content %}
+{% endblock right_content %}

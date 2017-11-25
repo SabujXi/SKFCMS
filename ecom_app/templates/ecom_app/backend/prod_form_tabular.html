@@ -1,0 +1,87 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %}{{title}}{% endblock title %}
+
+{% block heading %}{{heading}}{% endblock heading %}
+
+{% block msg %}
+<p>{{msg}}</p>
+{% endblock msg %}
+
+{% block right_content %}
+
+    <form action="{% url 'ecom_app:prod-form' prod.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table id="myTable" class="table table-bordered">
+            <thead>
+            <tr>
+                <th colspan="5" align="left">
+                    <a class="btn btn-info btn-xs" role="button" href="{% url 'ecom_app:prod-list'  %}" style="width:100px;font-weight:bold;">Back</a>
+                </th>
+                <th>
+                    <div style="width:100%; text-align:center;">
+                        <a class="btn btn-warning btn-xs" role="button" href="#" style="width:25px;font-weight:bold;" id="rm">-</a>
+                        <a class="btn btn-primary btn-xs" role="button" href="#" style="width:25px;font-weight:bold;" id="add">+</a>
+                    </div>
+                </th>
+                <th width="80" colspan="2">
+                    <a class="btn btn-success btn-xs" role="button" href="#" style="width:100%;font-weight:bold;">Save</a>
+                </th>
+            </tr>
+            <tr>
+                <th width="300">Product Name</th>
+                <th width="100">Product Image</th>
+                <th width="200">Category</th>
+                <th width="150">Brand</th>
+                <th width="100">Price</th>
+                <th width="100">Discount</th>
+                <th align="center">Select</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <input type="hidden" name="id" value="{{forloop.counter}}">
+                <td><input type="text" class="form-control" name="name" value="{{prod.name}}"></td>
+                <td><input type="file" name="image_file" id="imageurl" class="imageurl"></td>
+                <td>
+                    <select name="category" class="form-control">
+                        {% with product_categories=prod.category.all %}
+                        <!-- Not understand about prod.category.all -->
+                        <option value="">--- Select ---</option>
+                        {% for cat in cats %}
+                        <option value="{{ cat.id }}"
+                                {% for c in product_categories %}
+                                {% if c.id == cat.id %}
+                                selected="selected"
+                                {% endif %}
+                                {% endfor %}
+                        >
+                            {{ cat.name }}
+                        </option>
+                        {% endfor %}
+
+                        {% endwith %}
+                    </select>
+                </td>
+                <td>
+                    <select name="brand" class="form-control">
+                        <option value="">--- Select ---</option>
+                        {% for brand in brands %}
+                            <option value="{{ brand.id }}"
+                               {% if prod.brand_id == brand.id %}
+                                    selected="selected"
+                               {% endif %}
+                            >{{brand.name}}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td><input type="number" class="form-control" name="price" value="{{prod.price}}">
+                </td>
+                <td><input type="number" class="form-control" name="discount" value="{{prod.discount}}"></td>
+                <td align="center"><input type="checkbox" name="record"></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+{% endblock right_content %}

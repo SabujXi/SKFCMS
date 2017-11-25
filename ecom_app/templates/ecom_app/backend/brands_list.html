@@ -4,9 +4,9 @@
 {% block heading %}{{heading}}{% endblock heading %}
 
 
-{% block content %}
+{% block right_content %}
 <div style="width:100%; overflow: hidden;">
-    <a class="btn btn-success btn-xs pull-right" role="button" href="{% url 'ecom_app:brands-form' '' %}">Add New</a>
+    <a class="btn btn-success btn-xs pull-right" role="button" href="{% url 'ecom_app:brand-form' '' %}">Add New</a>
 </div>
 {% if brands %}
 <div class="table-responsive">
@@ -25,10 +25,10 @@
         <tr>
             <td>{{forloop.counter}}</td>
             <td>{{ brand.name }}</td>
-            <td>{{ brand.description }}</td>
+            <td>{% autoescape off %}{{ brand.description }}{% endautoescape %}</td>
             <td class="text-center" style="width:200px;">
-                <a class="btn btn-warning btn-xs" role="button" href="{% url 'ecom_app:brands-form' brand.id %}">Edit</a>
-                <a class="btn btn-danger btn-xs" role="button" href="{% url 'ecom_app:brands_delete' brand.id %}">Delete</a>
+                <a class="btn btn-warning btn-xs" role="button" href="{% url 'ecom_app:brand-form' brand.id %}">Edit</a>
+                <a class="btn btn-danger btn-xs" role="button" href="{% url 'ecom_app:brand-delete' brand.id %}">Delete</a>
             </td>
         </tr>
     {% endfor %}
@@ -38,4 +38,4 @@
 {% else %}
     <p>Brands not found!</p>
 {% endif %}
-{% endblock content %}
+{% endblock right_content %}

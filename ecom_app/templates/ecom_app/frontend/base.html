@@ -1,25 +1,190 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock title %}</title>
-    <style type="text/css">
-    	body{margin: 0px; padding: 0px; overflow: hidden;}
-    </style>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'ecom_app/libs/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'ecom_app/styles/base_style.css' %}">
+    <link href="{% static 'ecom_app/styles/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'ecom_app/styles/css/prettyPhoto.css' %}" rel="stylesheet">
+    <link href="{% static 'ecom_app/styles/css/price-range.css' %}" rel="stylesheet">
+    <link href="{% static 'ecom_app/styles/css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'ecom_app/styles/css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'ecom_app/styles/css/responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'ecom_app/styles/css/custom.css' %}" rel="stylesheet">
 </head>
 <body>
-	{% block header %}
-		<div style="padding:10px; margin:0px; width:100%; background: #ccc;">
-			<a href="{% url 'ecom_app:back-index' %}" style="text-decoration: none !important;">
-				Ecom Admin Panel
-			</a>
-		</div>
-	{% endblock header %}
 
-	<div style="padding:10px;">
-		{% block content %}
+{% block header %}
+<header id="header"><!--header-->
+    {% block header_top %}
+    {% include './header_top.html' %}
+    {% endblock header_top %}
 
-		{% endblock content %}
-	</div>
+
+    {% block header_middle %}
+    <div class="header-middle"><!--header-middle-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="logo pull-left">
+                        <a href="/"><img src="{% url 'ecom_app:upload_file_provider' sets.get_logo_file_path %}" alt=""
+                                         height="45" width="150"/></a>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="shop-menu pull-right">
+                        <ul class="nav navbar-nav">
+                            <li></li>
+                            <li><a href="{% url 'ecom_app:checkout' %}"><i class="fa fa-crosshairs"></i> Checkout</a>
+                            </li>
+                            <li><a href="{% url 'ecom_app:cart' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            {% if user.is_authenticated %}
+                                <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                                <li><a href="{% url 'ecom_app:logout' %}"><i class="fa fa-unlock"></i> Log Out</a></li>
+                            {% else %}
+                                <li><a href="{% url 'ecom_app:login' %}"><i class="fa fa-lock"></i> Login</a></li>
+                            {% endif %}
+
+                            <div class="search_box pull-right">
+                                <input type="text" placeholder="Search"/>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-middle-->
+    {% endblock header_middle %}
+
+    {% block header_bottom %}
+    <div class="header-bottom"><!--header-bottom-->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="mainmenu pull-left">
+                        <ul class="nav navbar-nav collapse navbar-collapse">
+                            <li><a href="{% url 'ecom_app:front-index' %}" class="active">Home</a></li>
+                            <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
+                                <ul role="menu" class="sub-menu">
+                                    <li><a href="blog.html">Blog List</a></li>
+                                    <li><a href="blog-single.html">Blog Single</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'ecom_app:contact' %}">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/header-bottom-->
+    {% endblock header_bottom %}
+</header><!--/header-->
+{% endblock header %}
+
+
+{% block content %}
+{% block slider %}
+{% include 'ecom_app/frontend/slider.html' %}
+{% endblock slider %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            {% block left_sidebar %}
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+
+                    {% block categories %}
+                    <h2>Category</h2>
+                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                        {% for category in categories %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><a href="{% url 'ecom_app:cat-product' category.id %}">{{category.name }}</a></h4>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div><!--/category-products-->
+                    {% endblock categories %}
+
+                    {% block brands %}
+                    <div class="brands_products"><!--brands_products-->
+                        <h2>Brands</h2>
+                        <div class="brands-name">
+                            <ul class="nav nav-pills nav-stacked">
+                                {% for brand in brands %}
+                                <li><a href="{% url 'ecom_app:brand-product' brand.id %}"> <span
+                                        class="pull-right">(50)</span>{{brand.name}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div><!--/brands_products-->
+                    {% endblock brands %}
+
+                    {% block price_range %}
+                    <div class="price-range"><!--price-range-->
+                        <h2>Price Range</h2>
+                        <div class="well text-center">
+                            <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600"
+                                   data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br/>
+                            <b class="pull-left">$ 0</b> <b class="pull-right">$ 600</b>
+                        </div>
+                    </div><!--/price-range-->
+                    {% endblock price_range %}
+
+                </div>
+            </div>
+            {% endblock left_sidebar %}
+
+            {% block right_content %}
+            <div class="col-sm-9 padding-right">
+                {% block features_items %}
+
+                {% endblock features_items %}
+            </div>
+            {% endblock right_content %}
+        </div>
+    </div>
+</section>
+{% endblock content %}
+{% block footer_wrap %}
+<footer id="footer"><!--Footer-->
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <p class="pull-left">
+                    {% if sets %}
+                    {{ sets.copyrights }}
+                    {% else %}
+                    Footer Text Here
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+</footer><!--/Footer-->
+
+{% endblock footer_wrap %}
+
+<script src="{% static 'ecom_app/styles/js/jquery.js' %}"></script>
+<script src="{% static 'ecom_app/libs/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'ecom_app/styles/js/jquery.scrollUp.min.js' %}"></script>
+<script src="{% static 'ecom_app/styles/js/price-range.js' %}"></script>
+<script src="{% static 'ecom_app/styles/js/jquery.prettyPhoto.js' %}"></script>
+<script src="{% static 'ecom_app/styles/js/main.js' %}"></script>
 </body>
 </html>

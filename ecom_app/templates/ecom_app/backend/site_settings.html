@@ -1,0 +1,122 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %}{{title}}{% endblock title %}
+
+{% block heading %}{{heading}}{% endblock heading %}
+
+{% block msg %}
+<p>{{msg}}</p>
+{% endblock msg %}
+
+{% block right_content %}
+<div class="bs-example">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#general">General Information</a></li>
+        <li><a data-toggle="tab" href="#seo">SEO Settings</a></li>
+        <li><a data-toggle="tab" href="#social">Social Settings</a></li>
+    </ul>
+
+
+    <div class="col-md-10 col-md-offset-1">
+        <form method="POST" action="{% url 'ecom_app:site-settings' site.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="tab-content">
+
+                <div id="general" class="tab-pane fade in active">
+                    <h3 class="tab-heading">General Part</h3>
+                    <div class="form-group">
+                        <label>Site Title</label>
+                        <input type="text" name="site_title" value="{{ site.title }}" class="form-control" placeholder="Site Title">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Chose Logo</label>
+                        <input type="file" name="image_file">
+                        <p class="help-block">
+                            <i>
+                                File must be in JPEG(.jpg or .jpeg) or GIF(.gif) or png format.
+                                The height and width of the Applicant Photo must be equal(300x300). Max size 100KB
+                            </i>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label>Short Description</label>
+                        <textarea rows="2" cols="98" name="short_desc" class="form-control" placeholder="Short Description">{{site.short_desc}}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Long Description</label>
+                        <textarea rows="4" cols="98" name="long_desc" class="form-control" placeholder="Long Description">{{site.long_desc}}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" name="phone" value="{{ site.phone }}" class="form-control" placeholder="Phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="email" value="{{ site.email }}" class="form-control" placeholder="Email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Details</label>
+                        <textarea rows="4" cols="98" name="contact_details" class="form-control" placeholder="Contact Details">{{ site.contact_details }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Copyright</label>
+                        <input type="text" name="copyright" value="{{ site.copyrights }}" class="form-control" placeholder="Copyright Description">
+                    </div>
+                </div>
+
+
+                <div id="seo" class="tab-pane fade">
+                    <h3 class="tab-heading">SEO Part</h3>
+
+                    <div class="form-group">
+                        <label>Meta Title</label>
+                        <input type="text" name="meta_title" value="{{ site.meta_title }}" class="form-control" placeholder="Meta Title">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Meta Description</label>
+                        <textarea rows="2" cols="98" name="meta_desc" class="form-control" placeholder="Meta Description">{{site.meta_description}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Meta Keyword</label>
+                        <input type="text" name="meta_keyword" value="{{ site.meta_keyword }}" class="form-control" placeholder="Meta Keyword">
+                    </div>
+                </div>
+
+
+                <div id="social" class="tab-pane fade">
+                    <h3 class="tab-heading">Social Part</h3>
+                    <div class="form-group">
+                        <label>Facebook Url</label>
+                        <input type="text" name="facebook" value="{{ site.facebook_url }}" class="form-control" placeholder="Facebook">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Twitter Url</label>
+                        <input type="text" name="twitter" value="{{ site.twitter_url }}" class="form-control" placeholder="Twitter">
+                    </div>
+                    <div class="form-group">
+                        <label>Google Plus</label>
+                        <input type="text" name="google_plus" value="{{ site.google_plus_url }}" class="form-control" placeholder="Google Plus">
+                    </div>
+                    <div class="form-group">
+                        <label>Youtube</label>
+                        <input type="text" name="youtube" value="{{ site.youtube_url }}" class="form-control" placeholder="Youtube">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-info pull-right">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock right_content %}
+

@@ -1,0 +1,44 @@
+{% extends 'ecom_app/backend/base.html' %}
+{% block title %}All Users list{% endblock title %}
+
+{% block heading %}{{heading}}{% endblock heading %}
+
+
+{% block right_content %}
+{% if users %}
+<div class="table-responsive">
+    <table class="table table-striped"> 
+
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Mobile</th>
+          <th>email</th>
+          <th>User Name</th>
+          <th>Position</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for user in users %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{ user.dj_user.first_name }}</td>
+            <td>{{ user.mobile }}</td>
+            <td>{{ user.dj_user.email }}</td>
+            <td>{{ user.dj_user.username }}</td>
+            <td>{{ user.position|capfirst }}</td>
+            <td class="text-center" style="width:200px;">
+                <a class="btn btn-warning btn-xs" role="button" href="{% url 'ecom_app:user-form' user.dj_user_id %}">Edit</a>
+                <a class="btn btn-danger btn-xs" role="button" href="#">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+    <p>User not found!</p>
+{% endif %}
+{% endblock right_content %}
