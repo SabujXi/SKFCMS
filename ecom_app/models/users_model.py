@@ -8,7 +8,9 @@ class Users(models.Model):
     mobile = models.CharField(max_length=15, default="")
     position = models.CharField(max_length=24, default="USER")
     reset_password_token = models.CharField(max_length=128, null=True, default=None, unique=True)
+    is_reset_req_flag = models.BooleanField(default=False)
     reg_complete_token = models.CharField(max_length=128, null=True, default=None, unique=True)
+
 
     @property
     def is_user(self):

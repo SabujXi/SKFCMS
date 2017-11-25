@@ -39,7 +39,8 @@ class UserReg(View):
         # Relation
         user = models.Users(
             dj_user=djuser,
-            mobile = mobile
+            mobile = mobile,
+            is_reset_req_flag = False
         )
         token = username + uuid4().hex
         abs_url = req.build_absolute_uri(reverse("ecom_app:email-verification", kwargs={"token":token}))
@@ -48,7 +49,8 @@ class UserReg(View):
         # user.save()
         # messages.info(req,"Successfully saved - Please Login!")
         res = send_mail("Registration complete", "You have completed your registration,"
-                                           "please click the following link to confirm your email: %s" % abs_url, "firoz@medisys.com", [email])
+                                                  "please click the following link to confirm your email: %s" % abs_url, "firoz@medisys.com", [email])
+
         if res == 1:
             djuser.save()
             user.save()
@@ -119,6 +121,7 @@ def forgot_pass(request):
                 token = username + uuid4().hex
                 abs_url = request.build_absolute_uri(reverse("ecom_app:reset-pass", kwargs={"token":token}))
                 user.reset_password_token = token
+                user.is_reset_req_flag = True
                 res = send_mail("Reset Password", "Link : " "Please click the following link to reset password: %s" % abs_url, "firoz@medisys.com", [email])
                 if res == 1:
                     user.save()
@@ -137,7 +140,10 @@ def reset_pass(request, token=None):
         except models.Users.DoesNotExist:
             user = None
         context = {'heading': heading, 'title': title, 'token':token, 'user_token':user}
-        return render(request, template, context)
+        if user.is_reset_req_flag==True:
+            return render(request, template, context)
+        else:
+            return render(request, 'ecom_app/frontend/404_page.html', {'title':'404 Page Not Found'})
 
     elif request.method == 'POST':
         token = request.POST.get('reset_token','')
@@ -151,7 +157,9 @@ def reset_pass(request, token=None):
         if user:
             if password:
                 user.dj_user.set_password(password)
+                user.is_reset_req_flag = False
                 user.dj_user.save()
+                user.save()
                 messages.info(request, 'Password Reset Successful!')
         else:
             messages.info(request, 'Sorry, User not found!')
