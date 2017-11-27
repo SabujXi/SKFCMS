@@ -12,6 +12,8 @@ from ecom_app.views.frontend.product_view import (
 
 from ecom_app.views.frontend.cart_view import (
     cart_view,
+    add2cart_view,
+    del4mcart_view,
 )
 
 from ecom_app.views.frontend.checkout_view import (
@@ -73,6 +75,8 @@ urlpatterns = [
     url(r'^brands/(?P<brand_id>[0-9]*)$', brand_porduct_view, name='brand-product'),
     url(r'^product-details/(?P<prod_id>[0-9]*)$', porduct_details_view, name='product-details'),
     url(r'^cart/$', cart_view, name='cart'),
+    url(r'^add2cart/(?P<pid>[0-9]+)$', add2cart_view, name='add2cart'),
+    url(r'^del4mcart/(?P<pid>[0-9]+)$', del4mcart_view, name='del4mcart'),
     url(r'^checkout/$', checkout_view, name='checkout'),
     url(r'^reg/$', UserReg.as_view(), name='reg'),
     url(r'^email-ver/(?P<token>[a-zA-Z0-9_-]+)$', verify_email_view, name='email-verification'),

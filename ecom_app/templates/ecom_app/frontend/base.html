@@ -41,7 +41,7 @@
                             <li></li>
                             <li><a href="{% url 'ecom_app:checkout' %}"><i class="fa fa-crosshairs"></i> Checkout</a>
                             </li>
-                            <li><a href="{% url 'ecom_app:cart' %}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="{% url 'ecom_app:cart' %}"><i class="fa fa-shopping-cart"></i> {% if request.session.pids %} {{ request.session.pids|length }} Cart {% else %} Cart {% endif %}</a></li>
                             {% if user.is_authenticated %}
                                 <li><a href="#"><i class="fa fa-user"></i> Account</a></li>
                                 <li><a href="{% url 'ecom_app:logout' %}"><i class="fa fa-unlock"></i> Log Out</a></li>
